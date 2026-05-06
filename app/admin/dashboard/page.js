@@ -42,7 +42,6 @@ export default function AdminDashboard() {
           <h1 className="text-4xl font-black text-slate-900 tracking-tight">Platform Overview</h1>
           <p className="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Welcome back, Super Admin</p>
         </div>
-        </div>
       </div>
 
       {/* Admin Stats Grid */}
