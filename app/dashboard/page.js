@@ -12,7 +12,8 @@ import {
   Plus,
   Calendar,
   TrendingUp,
-  CheckCircle
+  CheckCircle,
+  Pencil
 } from 'lucide-react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
@@ -96,6 +97,77 @@ export default function UserDashboard() {
                   )}
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          <div className="space-y-10 pt-10">
+            <div className="flex items-center justify-between">
+              <h3 className="text-3xl font-black text-pf-heading tracking-tight">My Properties</h3>
+              <Link 
+                href="/dashboard/add-listing"
+                className="rounded-full bg-pf-primary px-6 py-2 text-xs font-black text-white uppercase tracking-widest shadow-xl shadow-pf-primary/20 hover:scale-105 transition-all"
+              >
+                + Add New
+              </Link>
+            </div>
+
+            <div className="rounded-[48px] border border-gray-100 bg-white shadow-2xl overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="border-b border-gray-50 text-[10px] font-black uppercase tracking-[0.2em] text-pf-muted">
+                      <th className="px-10 py-6">Property</th>
+                      <th className="px-10 py-6">Price</th>
+                      <th className="px-10 py-6">Status</th>
+                      <th className="px-10 py-6 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-50">
+                    {myListings.length === 0 ? (
+                      <tr>
+                        <td colSpan="4" className="px-10 py-20 text-center text-pf-muted font-bold uppercase tracking-widest opacity-40">
+                          You haven't added any properties yet
+                        </td>
+                      </tr>
+                    ) : (
+                      myListings.map((listing) => (
+                        <tr key={listing.id} className="group hover:bg-pf-background transition-colors">
+                          <td className="px-10 py-6">
+                            <div className="flex items-center gap-4">
+                              <img src={listing.image} className="h-12 w-12 rounded-xl object-cover" alt="" />
+                              <div>
+                                <p className="font-bold text-pf-heading">{listing.title}</p>
+                                <p className="text-[10px] text-pf-muted uppercase tracking-widest">{listing.location.split(',')[0]}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-10 py-6">
+                            <span className="font-bold text-pf-heading">AED {listing.price}</span>
+                          </td>
+                          <td className="px-10 py-6">
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-green-600 border border-green-100">
+                              Active
+                            </span>
+                          </td>
+                          <td className="px-10 py-6 text-right">
+                            <div className="flex items-center justify-end gap-2">
+                              <button className="p-2 text-pf-muted hover:text-pf-primary transition-colors">
+                                <Pencil size={18} />
+                              </button>
+                              <button 
+                                onClick={() => deleteListing(listing.id)}
+                                className="p-2 text-pf-muted hover:text-red-500 transition-colors"
+                              >
+                                <Trash2 size={18} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
