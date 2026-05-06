@@ -15,38 +15,38 @@ export default function BookingDetailsModal({ isOpen, onClose, booking }) {
       {/* Modal Content */}
       <div className="relative w-full max-w-2xl bg-white rounded-[40px] shadow-2xl overflow-hidden animate-in zoom-in slide-in-from-bottom-8 duration-500">
         {/* Header */}
-        <div className="bg-slate-50 px-10 py-8 flex items-center justify-between border-b border-slate-100">
+        <div className="bg-slate-50 px-6 md:px-10 py-6 md:py-8 flex items-center justify-between border-b border-slate-100">
           <div>
-            <div className="flex items-center gap-3 mb-1">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-pf-primary px-2 py-1 bg-pf-primary/5 rounded-md">
+            <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-1">
+              <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-pf-primary px-2 py-1 bg-pf-primary/5 rounded-md">
                 Booking ID: {booking.id}
               </span>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-green-600 px-2 py-1 bg-green-50 rounded-md border border-green-100">
+              <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-green-600 px-2 py-1 bg-green-50 rounded-md border border-green-100">
                 Paid AED 5,000
               </span>
             </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Booking Details</h2>
+            <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">Booking Details</h2>
           </div>
           <button 
             onClick={onClose}
-            className="rounded-2xl bg-white p-3 text-slate-400 hover:text-pf-primary hover:scale-110 active:scale-95 transition-all shadow-sm"
+            className="rounded-xl md:rounded-2xl bg-white p-2.5 md:p-3 text-slate-400 hover:text-pf-primary transition-all shadow-sm shrink-0"
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
-        <div className="p-10 space-y-10 max-h-[70vh] overflow-y-auto custom-scrollbar">
+        <div className="p-6 md:p-10 space-y-8 md:space-y-10 max-h-[75vh] md:max-h-[70vh] overflow-y-auto custom-scrollbar">
           {/* Property Section */}
-          <div className="flex gap-6 items-start">
-            <div className="h-24 w-32 shrink-0 overflow-hidden rounded-2xl shadow-lg">
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 items-start">
+            <div className="h-20 w-32 md:h-24 md:w-32 shrink-0 overflow-hidden rounded-2xl shadow-lg">
               <img src={booking.propertyImage} className="h-full w-full object-cover" alt="" />
             </div>
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Property Information</p>
-              <h3 className="text-xl font-black text-slate-900 leading-tight mb-2">{booking.propertyTitle}</h3>
-              <div className="flex flex-wrap gap-4 text-xs font-bold text-slate-500">
-                <span className="flex items-center gap-1.5"><Calendar size={14} className="text-pf-primary" /> {booking.viewingDate}</span>
-                <span className="flex items-center gap-1.5"><Clock size={14} className="text-pf-primary" /> {booking.viewingTime}</span>
+              <p className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Property Information</p>
+              <h3 className="text-lg md:text-xl font-black text-slate-900 leading-tight mb-2">{booking.propertyTitle}</h3>
+              <div className="flex flex-wrap gap-3 md:gap-4 text-[10px] md:text-xs font-bold text-slate-500">
+                <span className="flex items-center gap-1.5"><Calendar size={13} className="text-pf-primary" /> {booking.viewingDate}</span>
+                <span className="flex items-center gap-1.5"><Clock size={13} className="text-pf-primary" /> {booking.viewingTime}</span>
               </div>
             </div>
           </div>
@@ -100,30 +100,30 @@ export default function BookingDetailsModal({ isOpen, onClose, booking }) {
           </div>
 
           {/* Payment Section */}
-          <div className="rounded-3xl bg-slate-50 border border-slate-100 p-8 space-y-6">
-            <div className="flex items-center justify-between">
+          <div className="rounded-2xl md:rounded-3xl bg-slate-50 border border-slate-100 p-6 md:p-8 space-y-6">
+            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <div className="flex items-center gap-3">
-                <CreditCard className="text-slate-400" size={20} />
-                <span className="font-black text-slate-900 uppercase tracking-widest text-xs">Payment Information</span>
+                <CreditCard className="text-slate-400" size={18} />
+                <span className="font-black text-slate-900 uppercase tracking-widest text-[10px] md:text-xs">Payment Information</span>
               </div>
-              <span className="font-mono text-[10px] text-slate-400">TXN_ID: {Math.random().toString(36).substr(2, 9).toUpperCase()}</span>
+              <span className="font-mono text-[9px] md:text-[10px] text-slate-400 uppercase">TXN ID: {Math.random().toString(36).substr(2, 9).toUpperCase()}</span>
             </div>
             <div className="flex items-center justify-between border-t border-slate-200 pt-6">
-              <p className="text-sm font-bold text-slate-500">Booking Fee (Non-refundable)</p>
-              <p className="text-xl font-black text-pf-primary">AED 5,000.00</p>
+              <p className="text-xs md:text-sm font-bold text-slate-500">Booking Fee</p>
+              <p className="text-lg md:text-xl font-black text-pf-primary">AED 5,000.00</p>
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="p-8 bg-slate-50 flex gap-4">
+        <div className="p-6 md:p-8 bg-slate-50 flex flex-col sm:flex-row gap-3 md:gap-4">
           <button 
             onClick={onClose}
-            className="flex-1 py-4 rounded-2xl bg-slate-900 text-white font-black text-xs uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-slate-200"
+            className="flex-1 py-4 rounded-xl md:rounded-2xl bg-slate-900 text-white font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-slate-200"
           >
             Close Details
           </button>
-          <button className="px-8 py-4 rounded-2xl border-2 border-slate-200 text-slate-400 font-black text-xs uppercase tracking-widest hover:bg-slate-100 transition-all">
+          <button className="flex-1 sm:flex-initial px-8 py-4 rounded-xl md:rounded-2xl border-2 border-slate-200 text-slate-400 font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-slate-100 transition-all">
             Download PDF
           </button>
         </div>

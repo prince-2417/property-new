@@ -64,10 +64,10 @@ export default function BookingModal({ isOpen, onClose, property }) {
         </button>
 
         {step === 1 && (
-          <div className="p-10 md:p-14">
-            <p className="text-xs font-black uppercase tracking-[0.4em] text-pf-primary mb-4">Step 1 of 2</p>
-            <h2 className="text-3xl md:text-4xl font-black text-pf-heading tracking-tight mb-2 leading-tight">Booking Details</h2>
-            <p className="text-sm font-medium text-pf-muted mb-10">{property.title}</p>
+          <div className="p-6 md:p-14">
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-pf-primary mb-3">Step 1 of 2</p>
+            <h2 className="text-2xl md:text-4xl font-black text-pf-heading tracking-tight mb-2 leading-tight">Booking Details</h2>
+            <p className="text-xs md:text-sm font-medium text-pf-muted mb-8 md:mb-10 line-clamp-1">{property.title}</p>
 
             <form onSubmit={handleNext} className="space-y-6">
               <div className="grid gap-6 md:grid-cols-2">
@@ -155,10 +155,10 @@ export default function BookingModal({ isOpen, onClose, property }) {
         )}
 
         {step === 2 && (
-          <div className="p-10 md:p-14">
-            <p className="text-xs font-black uppercase tracking-[0.4em] text-pf-primary mb-4">Step 2 of 2</p>
-            <h2 className="text-3xl md:text-4xl font-black text-pf-heading tracking-tight mb-2 leading-tight">Secure Payment</h2>
-            <p className="text-sm font-medium text-pf-muted mb-8">Pay booking fee to confirm your viewing schedule.</p>
+          <div className="p-6 md:p-14">
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-pf-primary mb-4">Step 2 of 2</p>
+            <h2 className="text-2xl md:text-4xl font-black text-pf-heading tracking-tight mb-2 leading-tight">Secure Payment</h2>
+            <p className="text-xs md:text-sm font-medium text-pf-muted mb-8">Pay booking fee to confirm viewing.</p>
 
             <div className="rounded-[32px] bg-pf-background p-8 mb-10 border border-gray-100">
               <div className="flex items-center justify-between mb-2">
@@ -207,11 +207,11 @@ export default function BookingModal({ isOpen, onClose, property }) {
         )}
 
         {step === 3 && (
-          <div className="p-14 text-center">
-            <div className="mx-auto h-24 w-24 rounded-full bg-green-50 flex items-center justify-center text-green-500 mb-8 shadow-inner">
-              <CheckCircle2 size={48} className="animate-in zoom-in duration-500" />
+          <div className="p-8 md:p-14 text-center">
+            <div className="mx-auto h-20 w-20 md:h-24 md:w-24 rounded-full bg-green-50 flex items-center justify-center text-green-500 mb-6 md:mb-8 shadow-inner">
+              <CheckCircle2 size={40} md:size={48} className="animate-in zoom-in duration-500" />
             </div>
-            <h2 className="text-3xl font-black text-pf-heading tracking-tight mb-4">Payment Successful!</h2>
+            <h2 className="text-2xl md:text-3xl font-black text-pf-heading tracking-tight mb-4">Payment Successful!</h2>
             <p className="text-pf-muted font-medium mb-10 leading-relaxed">
               Booking confirmed for <span className="text-pf-heading font-black">{property.title}</span>.<br/><br/>
               A confirmation email with property details has been sent to <span className="text-pf-primary font-bold">your email</span> and a notification has been sent to the owner, <span className="text-pf-heading font-bold">{property.ownerName || 'Elena Petrova'}</span>.
