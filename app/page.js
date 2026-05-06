@@ -1,4 +1,4 @@
-// Updated for Ultra-Mobile Responsiveness
+// Force deployment - Fixed build errors
 'use client';
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
