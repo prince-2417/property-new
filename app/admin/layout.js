@@ -136,18 +136,13 @@ export default function AdminLayout({ children }) {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="relative flex-1 sm:flex-initial">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                  <input 
-                    type="text" 
-                    placeholder="Search..." 
-                    className="w-full sm:w-64 rounded-2xl border border-slate-200 bg-white py-3 pl-12 pr-4 text-sm font-medium focus:border-pf-primary focus:outline-none transition-all"
-                  />
+                <div className="hidden md:block text-right">
+                  <p className="text-sm font-black text-slate-900">{user.name}</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-pf-primary">{user.role}</p>
                 </div>
-                <button className="relative rounded-2xl border border-slate-200 bg-white p-3 text-slate-600 transition hover:bg-slate-50">
-                  <Bell size={20} />
-                  <span className="absolute right-3 top-3 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
-                </button>
+                <div className="h-12 w-12 rounded-2xl bg-pf-primary/10 flex items-center justify-center text-pf-primary font-black shadow-inner">
+                  {user.name[0]}
+                </div>
               </div>
             </div>
 

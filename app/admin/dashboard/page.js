@@ -42,9 +42,7 @@ export default function AdminDashboard() {
           <h1 className="text-4xl font-black text-slate-900 tracking-tight">Platform Overview</h1>
           <p className="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Welcome back, Super Admin</p>
         </div>
-        <Link href="/admin/listings" className="flex items-center gap-3 rounded-[24px] bg-pf-primary px-8 py-4 text-sm font-black text-white shadow-2xl shadow-pf-primary/20 hover:scale-105 active:scale-95 transition-all">
-          <Search size={20} /> Property Details
-        </Link>
+        </div>
       </div>
 
       {/* Admin Stats Grid */}
