@@ -209,7 +209,7 @@ export default function BookingModal({ isOpen, onClose, property }) {
         {step === 3 && (
           <div className="p-8 md:p-14 text-center">
             <div className="mx-auto h-20 w-20 md:h-24 md:w-24 rounded-full bg-green-50 flex items-center justify-center text-green-500 mb-6 md:mb-8 shadow-inner">
-              <CheckCircle2 size={40} md:size={48} className="animate-in zoom-in duration-500" />
+              <CheckCircle2 size={44} className="animate-in zoom-in duration-500" />
             </div>
             <h2 className="text-2xl md:text-3xl font-black text-pf-heading tracking-tight mb-4">Payment Successful!</h2>
             <p className="text-pf-muted font-medium mb-10 leading-relaxed">
