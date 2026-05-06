@@ -40,22 +40,22 @@ export default function Hero({ onSearch }) {
               <p className="text-[10px] uppercase tracking-[0.3em] font-black">Find your ideal home in UAE</p>
             </div>
             
-            <h1 className="text-5xl sm:text-7xl font-black text-white leading-[1.1] mb-8 tracking-tighter">
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-white leading-[1.1] mb-6 md:mb-8 tracking-tighter">
               Discover the <span className="text-pf-primary">Perfect</span> <br />
               Place to Live.
             </h1>
             
-            <p className="text-lg sm:text-xl text-slate-300 leading-relaxed mb-12 max-w-xl font-medium">
+            <p className="text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed mb-8 md:mb-12 max-w-xl font-medium">
               Explore thousands of verified listings for sale and rent with exclusive insights and advanced filtering.
             </p>
 
-            <div className="rounded-[40px] bg-white/10 border border-white/20 shadow-2xl p-8 backdrop-blur-2xl">
-              <div className="flex gap-10 border-b border-white/10 mb-8">
+            <div className="rounded-3xl md:rounded-[40px] bg-white/10 border border-white/20 shadow-2xl p-5 md:p-8 backdrop-blur-2xl">
+              <div className="flex gap-6 md:gap-10 border-b border-white/10 mb-6 md:mb-8 overflow-x-auto scrollbar-hide whitespace-nowrap">
                 {['Buy', 'Rent', 'Commercial'].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`pb-5 text-sm font-black uppercase tracking-widest transition-all relative ${
+                    className={`pb-4 md:pb-5 text-[11px] md:text-sm font-black uppercase tracking-widest transition-all relative ${
                       activeTab === tab ? 'text-pf-primary' : 'text-white/60 hover:text-white'
                     }`}
                   >

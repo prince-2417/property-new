@@ -44,7 +44,7 @@ export default function PropertyCard({ property }) {
           </div>
         </div>
 
-        <div className="p-6 flex flex-col flex-1">
+        <div className="p-4 md:p-6 flex flex-col flex-1">
           <div className="mb-4 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-pf-primary">
             <span className="rounded-md bg-pf-primary/5 px-2 py-1">{property.tag}</span>
             <span className="h-1 w-1 rounded-full bg-pf-primary/30" />

@@ -106,9 +106,9 @@ export default function Navbar() {
       className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur border-b border-gray-200 shadow-sm"
       onMouseLeave={() => setActiveDropdown(null)}
     >
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-8">
-          <Link href="/" className="text-2xl font-black tracking-tight text-pf-primary flex items-center gap-1 hover:opacity-90 transition-opacity">
+      <div className="container mx-auto px-3 md:px-4 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-4 md:gap-8">
+          <Link href="/" className="text-xl md:text-2xl font-black tracking-tight text-pf-primary flex items-center gap-1 hover:opacity-90 transition-opacity">
             <span className="text-pf-primary">property</span>
             <span className="text-pf-heading">finder</span>
           </Link>

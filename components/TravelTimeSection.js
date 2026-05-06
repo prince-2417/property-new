@@ -95,7 +95,7 @@ export default function TravelTimeSection() {
 
           <div className="grid gap-4 md:gap-6">
             {topProperties.map((property) => (
-              <div key={property.id} className="group rounded-[32px] md:rounded-[40px] border border-slate-100 bg-white p-6 md:p-8 shadow-sm hover:shadow-2xl hover:border-pf-primary/20 transition-all duration-500">
+              <div key={property.id} className="group rounded-[32px] md:rounded-[40px] border border-slate-100 bg-white p-4 md:p-8 shadow-sm hover:shadow-2xl hover:border-pf-primary/20 transition-all duration-500">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-green-500" />

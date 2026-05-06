@@ -74,11 +74,11 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="border-t border-white/20 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-sm opacity-80 mb-4 md:mb-0">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="text-xs md:text-sm opacity-80 text-center md:text-left">
               &copy; 2026 Property Finder. All rights reserved.
             </div>
-            <div className="flex space-x-6 text-sm">
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-[10px] md:text-sm">
               <a href="#" className="hover:text-blue-400 transition">Privacy Policy</a>
               <a href="#" className="hover:text-blue-400 transition">Terms of Service</a>
               <a href="#" className="hover:text-blue-400 transition">Cookie Policy</a>
