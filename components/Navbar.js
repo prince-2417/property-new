@@ -112,11 +112,11 @@ export default function Navbar() {
             <span className="text-pf-heading">finder</span>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-6 text-[13px] font-bold text-pf-heading">
+          <div className="hidden lg:flex items-center gap-6 text-[13px] font-bold text-pf-heading relative h-14">
             {navLinks.map((link) => (
               <div 
                 key={link.name} 
-                className="relative h-14 flex items-center"
+                className="h-full flex items-center"
                 onMouseEnter={() => link.dropdown ? setActiveDropdown(link.name) : setActiveDropdown(null)}
               >
                 <Link 
@@ -126,31 +126,37 @@ export default function Navbar() {
                   {link.name}
                   {link.dropdown && <ChevronDown size={14} className={`transition-transform ${activeDropdown === link.name ? 'rotate-180' : ''}`} />}
                 </Link>
-
-                {/* Dropdown Menu */}
-                {link.dropdown && activeDropdown === link.name && (
-                  <div className="absolute top-14 left-0 w-[600px] bg-white border border-gray-100 shadow-2xl rounded-2xl p-8 animate-in fade-in slide-in-from-top-2 duration-200">
-                    <div className="grid grid-cols-3 gap-8">
-                      {link.dropdown.sections.map((section, idx) => (
-                        <div key={idx} className="space-y-4">
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-pf-muted">{section.title}</h4>
-                          <ul className="space-y-3">
-                            {section.links.map((sublink, sidx) => (
-                              <li key={sidx}>
-                                <Link href={sublink.href} className="flex items-center gap-2 text-sm text-pf-heading hover:text-pf-primary transition font-semibold group">
-                                  {sublink.icon && <sublink.icon size={14} className="text-pf-muted group-hover:text-pf-primary" />}
-                                  {sublink.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             ))}
+
+            {/* Mega Menu Dropdown Container - Now anchored to the links section */}
+            {activeDropdown && navLinks.find(l => l.name === activeDropdown)?.dropdown && (
+              <div 
+                className="absolute top-full left-0 w-full bg-white border border-gray-100 shadow-2xl rounded-2xl p-8 animate-in fade-in slide-in-from-top-2 duration-200 z-[60] min-w-[600px]"
+                onMouseEnter={() => setActiveDropdown(activeDropdown)}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <div className="grid grid-cols-3 gap-8">
+                  {navLinks.find(l => l.name === activeDropdown).dropdown.sections.map((section, idx) => (
+                    <div key={idx} className="space-y-4">
+                      <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-pf-primary">{section.title}</h4>
+                      <ul className="space-y-3">
+                        {section.links.map((sublink, sidx) => (
+                          <li key={sidx}>
+                            <Link href={sublink.href} className="flex items-center gap-2 text-[13px] text-pf-heading hover:text-pf-primary transition font-bold group">
+                              {sublink.icon && (
+                                <sublink.icon size={14} className="text-pf-muted group-hover:text-pf-primary transition-colors" />
+                              )}
+                              {sublink.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -189,7 +195,7 @@ export default function Navbar() {
             </div>
           )}
           
-          <button className="md:hidden p-2 rounded-full border border-gray-200 text-pf-text hover:bg-gray-100 transition"><Menu size={22} /></button>
+          <button className="md:hidden p-2 rounded-full border border-gray-100 text-pf-text hover:bg-gray-100 transition"><Menu size={22} /></button>
         </div>
       </div>
     </nav>
