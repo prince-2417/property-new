@@ -10,12 +10,12 @@ export default function FilterBar({ activeCategory, onCategoryChange, filters, o
 
   return (
     <div className="mb-10 rounded-[32px] border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-200/50">
-      <div className="flex flex-wrap items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-6 overflow-x-auto pb-4 scrollbar-hide -mx-2 px-2 md:mx-0 md:px-0 md:flex-wrap md:pb-0">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => onCategoryChange?.(cat)}
-            className={`rounded-full px-6 py-3 text-[13px] font-black transition-all duration-300 uppercase tracking-widest ${
+            className={`flex-shrink-0 rounded-full px-6 py-3 text-[12px] md:text-[13px] font-black transition-all duration-300 uppercase tracking-widest ${
               activeCategory === cat 
                 ? 'bg-pf-primary text-white shadow-xl shadow-pf-primary/20 scale-105' 
                 : 'border border-slate-100 bg-slate-50 text-slate-400 hover:border-pf-primary/30 hover:bg-white hover:text-pf-primary'

@@ -90,6 +90,7 @@ const toolsMenu = {
 export default function Navbar() {
   const { user, logout } = useAuth();
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { name: 'Buy', href: '/buy', dropdown: buyMenu },
@@ -105,7 +106,7 @@ export default function Navbar() {
       className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur border-b border-gray-200 shadow-sm"
       onMouseLeave={() => setActiveDropdown(null)}
     >
-      <div className="container mx-auto px-4 py-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="text-2xl font-black tracking-tight text-pf-primary flex items-center gap-1 hover:opacity-90 transition-opacity">
             <span className="text-pf-primary">property</span>
@@ -160,11 +161,11 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 justify-end">
+        <div className="flex items-center gap-3">
           <Link href="/dashboard/add-listing" className="hidden xl:flex items-center gap-2 rounded-full border-2 border-pf-primary bg-white px-5 py-2 text-sm font-bold text-pf-primary transition hover:bg-pf-primary hover:text-white">
             List Your Property
           </Link>
-          <Link href="/saved" className="hidden md:flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-pf-text transition hover:border-pf-primary hover:text-pf-primary">
+          <Link href="/saved" className="hidden lg:flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-pf-text transition hover:border-pf-primary hover:text-pf-primary">
             <Heart size={16} /> Saved
           </Link>
           
@@ -172,14 +173,14 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <Link 
                 href={user.role === 'Admin' ? '/admin/dashboard' : '/dashboard'} 
-                className="flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-pf-heading transition hover:border-pf-primary hover:text-pf-primary"
+                className="hidden sm:flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-pf-heading transition hover:border-pf-primary hover:text-pf-primary"
               >
-                <span className="hidden sm:inline">Hi, {user.name.split(' ')[0]}</span>
+                <span className="hidden md:inline">Hi, {user.name.split(' ')[0]}</span>
                 <User size={16} className="text-pf-primary" />
               </Link>
               <button 
                 onClick={logout}
-                className="flex items-center gap-2 rounded-full bg-pf-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-95 transition"
+                className="hidden sm:flex items-center gap-2 rounded-full bg-pf-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-95 transition"
               >
                 Logout
               </button>
@@ -195,9 +196,83 @@ export default function Navbar() {
             </div>
           )}
           
-          <button className="md:hidden p-2 rounded-full border border-gray-100 text-pf-text hover:bg-gray-100 transition"><Menu size={22} /></button>
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden p-2 rounded-xl border border-gray-100 text-pf-heading hover:bg-gray-50 transition"
+          >
+            <Menu size={24} />
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 top-[65px] bg-white z-[100] animate-in slide-in-from-right duration-300 overflow-y-auto">
+          <div className="p-6 space-y-8">
+            <nav className="space-y-4">
+              {navLinks.map((link) => (
+                <div key={link.name} className="space-y-3">
+                  <Link 
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center justify-between text-lg font-black text-pf-heading py-2"
+                  >
+                    {link.name}
+                  </Link>
+                  {link.dropdown && (
+                    <div className="pl-4 border-l-2 border-gray-100 space-y-4 pb-4">
+                      {link.dropdown.sections.map((section, idx) => (
+                        <div key={idx} className="space-y-2">
+                          <p className="text-[10px] font-black uppercase tracking-widest text-pf-primary">{section.title}</p>
+                          <div className="grid grid-cols-1 gap-2">
+                            {section.links.map((sublink, sidx) => (
+                              <Link 
+                                key={sidx} 
+                                href={sublink.href}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="text-sm font-bold text-pf-muted hover:text-pf-primary transition py-1"
+                              >
+                                {sublink.name}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
+
+            <div className="pt-8 border-t border-gray-100 space-y-4">
+              <Link 
+                href="/dashboard/add-listing"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-center w-full rounded-2xl bg-pf-primary py-4 text-sm font-black text-white shadow-xl shadow-pf-primary/20"
+              >
+                List Your Property
+              </Link>
+              {!user && (
+                <Link 
+                  href="/signup"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-center w-full rounded-2xl border-2 border-pf-primary py-4 text-sm font-black text-pf-primary"
+                >
+                  Create Account
+                </Link>
+              )}
+              {user && (
+                <button 
+                  onClick={() => { logout(); setIsMobileMenuOpen(false); }}
+                  className="w-full text-sm font-black text-red-500 py-4"
+                >
+                  Sign Out
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

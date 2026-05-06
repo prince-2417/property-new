@@ -20,15 +20,15 @@ export default function TravelTimeSection() {
           <h2 className="text-4xl font-black text-pf-heading tracking-tight">Search by travel times</h2>
         </div>
 
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
-          <div className="rounded-[48px] border border-slate-200 bg-white p-10 shadow-2xl shadow-slate-200/50">
-            <div className="space-y-8">
-              <div className="rounded-[32px] border border-slate-100 bg-slate-50 p-6">
-                <div className="flex items-center gap-3 text-xs font-black text-slate-900 mb-4 uppercase tracking-widest">
-                  <MapPin size={18} className="text-pf-primary" />
+        <div className="grid gap-8 md:gap-12 lg:grid-cols-[1fr_1.2fr]">
+          <div className="rounded-[32px] md:rounded-[48px] border border-slate-200 bg-white p-6 md:p-10 shadow-2xl shadow-slate-200/50">
+            <div className="space-y-6 md:space-y-8">
+              <div className="rounded-[24px] md:rounded-[32px] border border-slate-100 bg-slate-50 p-5 md:p-6">
+                <div className="flex items-center gap-3 text-[10px] md:text-xs font-black text-slate-900 mb-3 md:mb-4 uppercase tracking-widest">
+                  <MapPin size={16} className="text-pf-primary" />
                   <span>Destination Point</span>
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white px-6 py-4 text-sm shadow-inner">
+                <div className="rounded-xl md:rounded-2xl border border-slate-200 bg-white px-4 md:px-6 py-3 md:py-4 text-sm shadow-inner">
                   <input 
                     type="text" 
                     value={location}
@@ -39,16 +39,16 @@ export default function TravelTimeSection() {
                 </div>
               </div>
 
-              <div className="rounded-[32px] border border-slate-100 bg-slate-50 p-8">
-                <div className="flex items-center justify-between mb-8">
+              <div className="rounded-[24px] md:rounded-[32px] border border-slate-100 bg-slate-50 p-6 md:p-8">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-6 md:mb-8">
                   <div>
-                    <p className="text-[10px] uppercase tracking-[0.2em] font-black text-slate-400 mb-2">Max travel time</p>
-                    <p className="text-3xl font-black text-pf-primary tracking-tighter">{time} mins</p>
+                    <p className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-black text-slate-400 mb-1 md:mb-2">Max travel time</p>
+                    <p className="text-2xl md:text-3xl font-black text-pf-primary tracking-tighter">{time} mins</p>
                   </div>
                   <button 
                     onClick={() => setIsPeak(!isPeak)}
-                    className={`inline-flex items-center gap-3 rounded-full px-6 py-3 text-xs font-black uppercase tracking-widest transition-all ${
-                      isPeak ? 'bg-slate-900 text-white' : 'bg-white text-slate-400 border border-slate-100'
+                    className={`inline-flex items-center justify-center gap-3 rounded-full px-5 py-2.5 md:px-6 md:py-3 text-[10px] md:text-xs font-black uppercase tracking-widest transition-all ${
+                      isPeak ? 'bg-pf-heading text-white' : 'bg-white text-slate-400 border border-slate-100'
                     }`}
                   >
                     Peak hours
@@ -66,7 +66,7 @@ export default function TravelTimeSection() {
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-3 md:gap-4">
                 {[
                   { id: 'Drive', icon: Car, label: 'Drive' },
                   { id: 'Metro', icon: Train, label: 'Metro' },
@@ -75,52 +75,52 @@ export default function TravelTimeSection() {
                   <button 
                     key={item.id}
                     onClick={() => setMode(item.id)}
-                    className={`rounded-3xl border py-6 text-center transition-all duration-300 ${
+                    className={`rounded-2xl md:rounded-3xl border py-4 md:py-6 text-center transition-all duration-300 ${
                       mode === item.id 
                         ? 'border-pf-primary bg-pf-primary/5 text-pf-primary shadow-lg shadow-pf-primary/10' 
                         : 'border-slate-100 bg-white text-slate-400 hover:border-slate-200 hover:text-slate-600'
                     }`}
                   >
-                    <item.icon className="mx-auto mb-3" size={24} />
-                    <span className="text-[10px] font-black uppercase tracking-widest">{item.label}</span>
+                    <item.icon className="mx-auto mb-2 md:mb-3" size={24} />
+                    <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest">{item.label}</span>
                   </button>
                 ))}
               </div>
 
-              <button className="mt-4 w-full rounded-[24px] bg-pf-primary px-8 py-5 text-sm font-black uppercase tracking-widest text-white shadow-2xl shadow-pf-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all">
+              <button className="mt-2 w-full rounded-2xl md:rounded-[24px] bg-pf-primary px-6 py-4 md:px-8 md:py-5 text-[11px] md:text-sm font-black uppercase tracking-widest text-white shadow-2xl shadow-pf-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all">
                 Find properties in range
               </button>
             </div>
           </div>
 
-          <div className="grid gap-6">
+          <div className="grid gap-4 md:gap-6">
             {topProperties.map((property) => (
-              <div key={property.id} className="group rounded-[40px] border border-slate-100 bg-white p-8 shadow-sm hover:shadow-2xl hover:border-pf-primary/20 transition-all duration-500">
+              <div key={property.id} className="group rounded-[32px] md:rounded-[40px] border border-slate-100 bg-white p-6 md:p-8 shadow-sm hover:shadow-2xl hover:border-pf-primary/20 transition-all duration-500">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-green-500" />
-                    <span className="text-[10px] uppercase tracking-widest font-black text-slate-400">Available Now</span>
+                    <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                    <span className="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400">Available Now</span>
                   </div>
-                  <span className="rounded-xl bg-slate-900 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest text-white">
+                  <span className="rounded-lg bg-pf-heading px-3 py-1 text-[8px] md:text-[10px] font-black uppercase tracking-widest text-white">
                     Premium
                   </span>
                 </div>
                 <div className="flex justify-between items-end">
                   <div>
-                    <div className="text-3xl font-black text-pf-heading tracking-tight">AED {property.price}</div>
-                    <div className="text-sm font-bold text-slate-400 mt-1">{property.location}</div>
+                    <div className="text-2xl md:text-3xl font-black text-pf-heading tracking-tight">AED {property.price}</div>
+                    <div className="text-xs md:text-sm font-bold text-slate-400 mt-1">{property.location}</div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <button className="h-12 w-12 rounded-2xl border border-slate-100 flex items-center justify-center text-pf-primary hover:bg-pf-primary hover:text-white transition-all shadow-sm">
+                    <button className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl border border-slate-100 flex items-center justify-center text-pf-primary hover:bg-pf-primary hover:text-white transition-all shadow-sm">
                       <Clock size={18} />
                     </button>
                   </div>
                 </div>
                 
-                <div className="mt-8 flex items-center justify-between rounded-3xl bg-slate-50 px-6 py-4 text-[11px] font-black uppercase tracking-widest text-pf-primary group-hover:bg-pf-primary/5 transition-colors">
+                <div className="mt-6 md:mt-8 flex items-center justify-between rounded-2xl md:rounded-3xl bg-slate-50 px-4 md:px-6 py-3 md:py-4 text-[9px] md:text-[11px] font-black uppercase tracking-widest text-pf-primary group-hover:bg-pf-primary/5 transition-colors">
                   <span className="flex items-center gap-2">
                     <Clock size={14} />
-                    max {time} mins to {location} via {mode}
+                    {time}m to {location} via {mode}
                   </span>
                   <ChevronRight size={18} />
                 </div>
