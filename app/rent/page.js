@@ -26,8 +26,9 @@ export default function RentPage() {
     // Sub filters
     if (filters.location && !property.location.toLowerCase().includes(filters.location.toLowerCase())) return false;
     if (filters.beds) {
-      if (filters.beds === '4' && parseInt(property.bedrooms) < 4) return false;
-      if (filters.beds !== '4' && property.bedrooms.toString() !== filters.beds) return false;
+      const propertyBeds = property.bedrooms || property.beds || 0;
+      if (filters.beds === '4' && parseInt(propertyBeds) < 4) return false;
+      if (filters.beds !== '4' && propertyBeds.toString() !== filters.beds) return false;
     }
     if (filters.priceRange) {
       const price = parseInt(property.price.replace(/,/g, ''));
