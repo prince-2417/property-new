@@ -6,7 +6,6 @@ import Hero from '@/components/Hero';
 import FilterBar from '@/components/FilterBar';
 import PropertyGrid from '@/components/PropertyGrid';
 import TravelTimeSection from '@/components/TravelTimeSection';
-import SearchByAreaSection from '@/components/SearchByAreaSection';
 import Footer from '@/components/Footer';
 import { useListings } from '@/context/ListingContext';
 

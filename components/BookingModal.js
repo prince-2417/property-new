@@ -213,8 +213,8 @@ export default function BookingModal({ isOpen, onClose, property }) {
             </div>
             <h2 className="text-3xl font-black text-pf-heading tracking-tight mb-4">Payment Successful!</h2>
             <p className="text-pf-muted font-medium mb-10 leading-relaxed">
-              Booking confirmed for <span className="text-pf-heading font-black">{propertyTitle}</span>.<br/><br/>
-              A confirmation email with property details has been sent to <span className="text-pf-primary font-bold">your email</span> and a notification has been sent to the owner, <span className="text-pf-heading font-bold">{ownerName}</span>.
+              Booking confirmed for <span className="text-pf-heading font-black">{property.title}</span>.<br/><br/>
+              A confirmation email with property details has been sent to <span className="text-pf-primary font-bold">your email</span> and a notification has been sent to the owner, <span className="text-pf-heading font-bold">{property.ownerName || 'Elena Petrova'}</span>.
             </p>
             <button 
               onClick={onClose}

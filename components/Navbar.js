@@ -1,5 +1,5 @@
 'use client';
-import { User, Menu, Heart, Search, ChevronDown, Building2, Map, Calculator, BookOpen, TrendingUp } from 'lucide-react';
+import { User, Menu, ChevronDown, Building2, Map, Calculator, BookOpen, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
