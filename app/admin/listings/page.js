@@ -1,24 +1,41 @@
 'use client';
+import { useState } from 'react';
 import { useListings } from '@/context/ListingContext';
 import { Trash2, ExternalLink, MapPin, Search, Filter, Download } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminAllListings() {
   const { listings, deleteListing } = useListings();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredListings = listings.filter(listing => 
+    listing.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    listing.location.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="space-y-10 animate-in fade-in duration-700">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-4xl font-black text-slate-900 tracking-tight">Property Management</h1>
-          <p className="text-slate-500 font-bold mt-1 uppercase tracking-widest text-xs">Total {listings.length} listings active</p>
+          <p className="text-slate-500 font-bold mt-1 uppercase tracking-widest text-xs">Showing {filteredListings.length} of {listings.length} properties</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+            <input 
+              type="text" 
+              placeholder="Search properties..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="rounded-2xl border border-slate-200 bg-white py-3 pl-12 pr-6 text-sm font-bold focus:border-pf-primary focus:outline-none transition-all w-64 shadow-sm"
+            />
+          </div>
           <button className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-700 hover:bg-slate-50 transition-all shadow-sm">
             <Filter size={18} /> Filters
           </button>
           <button className="flex items-center gap-2 rounded-2xl bg-pf-primary px-6 py-3 text-sm font-black text-white shadow-xl shadow-pf-primary/20 hover:scale-105 active:scale-95 transition-all">
-            <Download size={18} /> Export List
+            <Download size={18} /> Export
           </button>
         </div>
       </div>
@@ -36,14 +53,14 @@ export default function AdminAllListings() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {listings.length === 0 ? (
+              {filteredListings.length === 0 ? (
                 <tr>
                   <td colSpan="5" className="px-10 py-32 text-center">
                     <p className="text-slate-300 font-black text-xl uppercase tracking-widest">No listings found</p>
                   </td>
                 </tr>
               ) : (
-                listings.map((listing) => (
+                filteredListings.map((listing) => (
                   <tr key={listing.id} className="group hover:bg-slate-50/50 transition-all duration-300">
                     <td className="px-10 py-8">
                       <div className="flex items-center gap-6">

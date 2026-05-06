@@ -4,11 +4,17 @@ import { Users, Mail, ShieldCheck, Search, Filter, Trash2, UserCheck, MoreVertic
 
 export default function AdminManageUsers() {
   const [users, setUsers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem('pf_users') || '[]');
     setUsers(storedUsers);
   }, []);
+
+  const filteredUsers = users.filter(user => 
+    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const deleteUser = (userId) => {
     if (confirm('Are you sure you want to delete this user? All their data will be removed.')) {
@@ -24,14 +30,16 @@ export default function AdminManageUsers() {
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-4xl font-black text-slate-900 tracking-tight">User Management</h1>
-          <p className="text-slate-500 font-bold mt-1 uppercase tracking-widest text-xs">Total {users.length} registered members</p>
+          <p className="text-slate-500 font-bold mt-1 uppercase tracking-widest text-xs">Showing {filteredUsers.length} of {users.length} members</p>
         </div>
         <div className="flex gap-3">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
             <input 
               type="text" 
-              placeholder="Search users..." 
+              placeholder="Search by name or email..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="rounded-2xl border border-slate-200 bg-white py-3 pl-12 pr-6 text-sm font-bold focus:border-pf-primary focus:outline-none transition-all w-64 shadow-sm"
             />
           </div>
@@ -53,7 +61,7 @@ export default function AdminManageUsers() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {users.map((user) => (
+              {filteredUsers.map((user) => (
                 <tr key={user.id} className="group hover:bg-slate-50/30 transition-colors">
                   <td className="px-10 py-8">
                     <div className="flex items-center gap-6">
