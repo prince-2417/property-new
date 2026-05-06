@@ -37,11 +37,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-12 animate-in fade-in duration-700">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl font-black text-slate-900 tracking-tight">Platform Overview</h1>
-          <p className="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Welcome back, Super Admin</p>
-        </div>
+      <div className="flex items-center justify-between mb-8">
       </div>
 
       {/* Admin Stats Grid */}

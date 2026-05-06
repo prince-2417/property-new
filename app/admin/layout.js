@@ -130,10 +130,6 @@ export default function AdminLayout({ children }) {
                 >
                   <LayoutDashboard size={22} />
                 </button>
-                <div>
-                  <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Platform Overview</h1>
-                  <p className="mt-1 text-xs md:text-sm font-medium text-slate-500">Welcome back to your command center.</p>
-                </div>
               </div>
               <div className="flex items-center gap-3">
                 <div className="hidden md:block text-right">
