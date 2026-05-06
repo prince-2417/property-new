@@ -18,10 +18,19 @@ import {
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useListings } from '@/context/ListingContext';
+import EditListingModal from '@/components/EditListingModal';
 
 export default function UserDashboard() {
   const { user } = useAuth();
   const { userListings, deleteListing, bookings } = useListings();
+  
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedListing, setSelectedListing] = useState(null);
+
+  const handleEditClick = (listing) => {
+    setSelectedListing(listing);
+    setIsEditModalOpen(true);
+  };
 
   // Show ONLY user's listings
   const myListings = userListings.filter(l => l.ownerId === user?.id);
@@ -151,7 +160,10 @@ export default function UserDashboard() {
                           </td>
                           <td className="px-10 py-6 text-right">
                             <div className="flex items-center justify-end gap-2">
-                              <button className="p-2 text-pf-muted hover:text-pf-primary transition-colors">
+                              <button 
+                                onClick={() => handleEditClick(listing)}
+                                className="p-2 text-pf-muted hover:text-pf-primary transition-colors"
+                              >
                                 <Pencil size={18} />
                               </button>
                               <button 
@@ -209,6 +221,12 @@ export default function UserDashboard() {
           </div>
         </div>
       </div>
+
+      <EditListingModal 
+        isOpen={isEditModalOpen} 
+        onClose={() => setIsEditModalOpen(false)} 
+        listing={selectedListing} 
+      />
     </div>
   );
 }

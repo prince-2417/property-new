@@ -76,6 +76,14 @@ export function ListingProvider({ children }) {
     localStorage.setItem('pf_listings', JSON.stringify(updatedListings));
   };
 
+  const updateListing = (id, updatedData) => {
+    const updatedListings = userListings.map(l => 
+      l.id === id ? { ...l, ...updatedData } : l
+    );
+    setUserListings(updatedListings);
+    localStorage.setItem('pf_listings', JSON.stringify(updatedListings));
+  };
+
   // Global listings includes static ones + all user-added ones
   const allListings = [...userListings, ...staticProperties];
 
@@ -88,6 +96,7 @@ export function ListingProvider({ children }) {
       addListing, 
       addBooking,
       deleteListing,
+      updateListing,
       toggleSave
     }}>
       {children}
