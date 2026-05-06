@@ -1,0 +1,80 @@
+export const properties = [
+  {
+    id: 1,
+    title: "Oceanfront Villa | Palm Jumeirah",
+    price: "45,000,000",
+    location: "Palm Jumeirah, Dubai",
+    beds: 6,
+    baths: 8,
+    area: "12,500 sqft",
+    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=2071",
+    tag: "Exclusive",
+    verified: true,
+    isSuperAgent: true
+  },
+  {
+    id: 2,
+    title: "Sky Penthouse | Burj Khalifa",
+    price: "28,500,000",
+    location: "Downtown Dubai",
+    beds: 4,
+    baths: 5,
+    area: "6,800 sqft",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=2070",
+    tag: "Featured",
+    verified: true,
+    isSuperAgent: false
+  },
+  {
+    id: 3,
+    title: "Modern Oasis | Emirates Hills",
+    price: "32,000,000",
+    location: "Emirates Hills, Dubai",
+    beds: 7,
+    baths: 9,
+    area: "15,200 sqft",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2075",
+    tag: "New",
+    verified: false,
+    isSuperAgent: true
+  },
+  {
+    id: 4,
+    title: "Luxury Loft | Dubai Marina",
+    price: "12,400,000",
+    location: "Dubai Marina, Dubai",
+    beds: 3,
+    baths: 4,
+    area: "4,200 sqft",
+    image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&q=80&w=1984",
+    tag: "Trending",
+    verified: true,
+    isSuperAgent: true
+  },
+  {
+    id: 5,
+    title: "Royal Suite | Saadiyat Island",
+    price: "18,900,000",
+    location: "Saadiyat Island, Abu Dhabi",
+    beds: 5,
+    baths: 6,
+    area: "8,500 sqft",
+    image: "https://images.unsplash.com/photo-1600607687940-47a0f9259017?auto=format&fit=crop&q=80&w=2070",
+    tag: "Featured",
+    verified: true,
+    isSuperAgent: false
+  },
+  {
+    id: 6,
+    title: "Beachside Mansion | Jumeirah",
+    price: "55,000,000",
+    location: "Jumeirah Bay, Dubai",
+    beds: 8,
+    baths: 10,
+    area: "18,000 sqft",
+    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=2070",
+    tag: "Iconic",
+    verified: true,
+    isSuperAgent: true
+  }
+];

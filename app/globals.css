@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+:root {
+  --pf-background: #f8fafc;
+  --pf-surface: #ffffff;
+  --pf-text: #0f172a;
+  --pf-heading: #111827;
+  --pf-muted: #64748b;
+  --pf-primary: #ef5e4e;
+  --pf-secondary: #d44a3b;
+  --pf-border: #e2e8f0;
+  --pf-shadow: 0 15px 40px -20px rgba(15, 23, 42, 0.15);
+  --font-sans: "Inter", sans-serif;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--pf-background);
+    color: var(--pf-text);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+@layer utilities {
+  .pf-card {
+    background: var(--pf-surface);
+    border-radius: 28px;
+    box-shadow: var(--pf-shadow);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .pf-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 70px -35px rgba(15, 23, 42, 0.25);
+  }
+
+  .btn-primary {
+    background: var(--pf-primary);
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 22px;
+    padding: 0.95rem 1.8rem;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    border-radius: 9999px;
+    border: 1px solid rgba(239, 94, 78, 0.2);
+    background: white;
+    color: var(--pf-primary);
+    padding: 0.95rem 1.8rem;
+    font-weight: 700;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(239, 94, 78, 0.04);
+    transform: translateY(-1px);
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+  }
+}
