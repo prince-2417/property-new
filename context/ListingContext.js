@@ -9,15 +9,18 @@ const ListingContext = createContext();
 export function ListingProvider({ children }) {
   const [userListings, setUserListings] = useState([]);
   const [bookings, setBookings] = useState([]);
+  const [savedProperties, setSavedProperties] = useState([]);
   const { user } = useAuth();
 
   useEffect(() => {
     // Load user-added listings and bookings from localStorage
     const savedListings = localStorage.getItem('pf_listings');
     const savedBookings = localStorage.getItem('pf_bookings');
+    const savedFavs = localStorage.getItem('pf_saved');
     
     if (savedListings) setUserListings(JSON.parse(savedListings));
     if (savedBookings) setBookings(JSON.parse(savedBookings));
+    if (savedFavs) setSavedProperties(JSON.parse(savedFavs));
   }, []);
 
   const addListing = (listingData) => {
@@ -54,6 +57,18 @@ export function ListingProvider({ children }) {
     localStorage.setItem('pf_bookings', JSON.stringify(updatedBookings));
     return newBooking;
   };
+  
+  const toggleSave = (propertyId) => {
+    const isSaved = savedProperties.includes(propertyId);
+    let updated;
+    if (isSaved) {
+      updated = savedProperties.filter(id => id !== propertyId);
+    } else {
+      updated = [...savedProperties, propertyId];
+    }
+    setSavedProperties(updated);
+    localStorage.setItem('pf_saved', JSON.stringify(updated));
+  };
 
   const deleteListing = (id) => {
     const updatedListings = userListings.filter(l => l.id !== id);
@@ -69,9 +84,11 @@ export function ListingProvider({ children }) {
       listings: allListings, 
       userListings, 
       bookings,
+      savedProperties,
       addListing, 
       addBooking,
-      deleteListing 
+      deleteListing,
+      toggleSave
     }}>
       {children}
     </ListingContext.Provider>

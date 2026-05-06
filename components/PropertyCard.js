@@ -2,15 +2,17 @@
 import { Bed, Bath, Maximize, Heart, CheckCircle, Phone, MessageCircle, Mail, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useListings } from '@/context/ListingContext';
 import BookingModal from './BookingModal';
 
 export default function PropertyCard({ property }) {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const { toggleSave, savedProperties } = useListings();
+  const isSaved = (savedProperties || []).includes(property.id);
 
   return (
     <>
       <div className="pf-card group overflow-hidden flex flex-col h-full bg-white border border-gray-100 hover:border-pf-primary/30 hover:shadow-2xl transition-all duration-500">
-        {/* ... existing card content ... */}
         <div className="relative h-64 overflow-hidden">
           <img
             src={property.image}
@@ -33,8 +35,14 @@ export default function PropertyCard({ property }) {
             )}
           </div>
 
-          <button className="absolute right-4 top-4 rounded-2xl bg-white/90 p-3 shadow-xl backdrop-blur-md transition-all hover:bg-white hover:scale-110 active:scale-90">
-            <Heart size={18} className="text-pf-heading" />
+          <button 
+            onClick={() => toggleSave(property.id)}
+            className="absolute right-4 top-4 rounded-2xl bg-white/90 p-3 shadow-xl backdrop-blur-md transition-all hover:bg-white hover:scale-110 active:scale-90"
+          >
+            <Heart 
+              size={18} 
+              className={`transition-colors ${isSaved ? 'fill-red-500 text-red-500' : 'text-pf-heading'}`} 
+            />
           </button>
 
           <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 to-transparent p-6 pt-12">
