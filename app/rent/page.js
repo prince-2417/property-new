@@ -61,11 +61,11 @@ export default function RentPage() {
               <span className="text-pf-accent">Properties for rent</span>
             </nav>
             <div className="max-w-4xl space-y-8">
-              <h1 className="font-serif italic text-6xl md:text-8xl text-pf-heading leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-1000">
+              <h1 className="font-serif italic text-4xl md:text-6xl lg:text-8xl text-pf-heading leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 Properties for <br />
                 <span className="font-normal not-italic text-white">Rent in UAE</span>
               </h1>
-              <p className="text-xl md:text-2xl text-white/40 max-w-2xl font-light leading-relaxed animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-200">
+              <p className="text-base md:text-xl lg:text-2xl text-white/40 max-w-2xl font-light leading-relaxed animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-200">
                 Find your perfect rental home from thousands of verified listings including apartments, villas, and short-term rentals.
               </p>
             </div>
@@ -95,7 +95,7 @@ export default function RentPage() {
                   </select>
                 </div>
               </div>
-              <PropertyGrid listings={filteredProperties} />
+              <PropertyGrid listings={filteredProperties} cols={2} />
             </div>
 
             <aside className="w-full xl:w-[450px] space-y-12">
