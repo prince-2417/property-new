@@ -23,7 +23,7 @@ export default function NewProjectsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-pf-background text-white">
+    <div className="min-h-screen text-white bg-pf-background">
       <Navbar />
       
       <main className="pt-24 pb-32">
@@ -33,28 +33,28 @@ export default function NewProjectsPage() {
             <img 
               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070" 
               alt="Luxury Developments" 
-              className="h-full w-full object-cover opacity-30 grayscale"
+              className="object-cover w-full h-full opacity-30 grayscale"
             />
             <div className="absolute inset-0 bg-black/60" />
             <div className="absolute inset-0 bg-gradient-to-b from-pf-background via-pf-background/70 to-pf-background" />
           </div>
           
-          <div className="container mx-auto px-6 relative z-10">
-            <div className="max-w-4xl space-y-8 text-center mx-auto">
+          <div className="container relative z-10 px-6 mx-auto">
+            <div className="max-w-4xl mx-auto space-y-8 text-center">
               <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent animate-in fade-in slide-in-from-bottom-4 duration-1000">Future Legacies</p>
               <h1 className="font-serif italic text-6xl md:text-8xl text-pf-heading leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 New Projects <br />
-                <span className="font-normal not-italic text-white">& Off-plan</span>
+                <span className="not-italic font-normal text-white">& Off-plan</span>
               </h1>
-              <p className="text-xl md:text-2xl text-white/40 max-w-2xl mx-auto font-light leading-relaxed animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-200">
+              <p className="max-w-2xl mx-auto text-xl font-light leading-relaxed duration-1000 delay-200 md:text-2xl text-white/40 animate-in fade-in slide-in-from-bottom-12">
                 Discover the latest residential developments and off-plan properties across the UAE. Invest in the future of modern living.
               </p>
             </div>
           </div>
         </section>
 
-        <div className="container mx-auto px-6">
-          <div className="flex flex-wrap gap-4 mb-20 justify-center">
+        <div className="container px-6 mx-auto">
+          <div className="flex flex-wrap justify-center gap-4 mb-20">
             {['All Projects', 'Dubai', 'Abu Dhabi', 'Sharjah', 'Ras Al Khaimah'].map((city) => (
               <button 
                 key={city} 
@@ -70,7 +70,7 @@ export default function NewProjectsPage() {
 
           <div className="grid gap-8 lg:grid-cols-[1fr_420px]">
             {/* Projects Grid */}
-            <div className="grid gap-px bg-white/5 border border-white/5 grid-cols-1 xl:grid-cols-2 self-start">
+            <div className="grid self-start grid-cols-1 gap-px border bg-white/5 border-white/5 xl:grid-cols-2">
               {filteredProjects.length > 0 ? (
                 filteredProjects.map((project) => (
                   <div key={project.id} className="group relative h-[600px] overflow-hidden bg-pf-surface transition-all duration-700 cursor-pointer">
@@ -92,7 +92,7 @@ export default function NewProjectsPage() {
                         <div className="flex items-center gap-3 text-[9px] font-black uppercase tracking-[0.3em] text-pf-accent">
                           <Building size={12} /> {project.developer}
                         </div>
-                        <h3 className="font-serif text-4xl text-pf-heading leading-tight group-hover:italic transition-all duration-700">
+                        <h3 className="font-serif text-4xl leading-tight transition-all duration-700 text-pf-heading group-hover:italic">
                           {project.name}
                         </h3>
                         <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/30">
@@ -103,9 +103,9 @@ export default function NewProjectsPage() {
                       <div className="flex items-center justify-between pt-8 border-t border-white/5">
                         <div className="space-y-1">
                           <p className="text-[9px] font-black text-white/10 uppercase tracking-widest">Entry Valuation</p>
-                          <p className="text-2xl font-serif italic text-white tracking-tight">{project.price}</p>
+                          <p className="font-serif text-2xl italic tracking-tight text-white">{project.price}</p>
                         </div>
-                        <button className="h-16 w-16 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all group-hover:bg-pf-accent group-hover:text-black group-hover:border-pf-accent duration-700">
+                        <button className="flex items-center justify-center w-16 h-16 text-white transition-all duration-700 border border-white/10 hover:bg-white hover:text-black group-hover:bg-pf-accent group-hover:text-black group-hover:border-pf-accent">
                           <ArrowUpRight size={24} />
                         </button>
                       </div>
@@ -113,15 +113,15 @@ export default function NewProjectsPage() {
                   </div>
                 ))
               ) : (
-                <div className="col-span-full py-40 text-center bg-pf-surface">
-                  <p className="text-white/20 font-serif italic text-2xl">No upcoming legacies in this region yet.</p>
+                <div className="py-40 text-center col-span-full bg-pf-surface">
+                  <p className="font-serif text-2xl italic text-white/20">No upcoming legacies in this region yet.</p>
                 </div>
               )}
             </div>
 
             {/* Sticky Map */}
-            <div className="sticky top-28 self-start border border-white/5 overflow-hidden" style={{height: '600px'}}>
-              <div className="px-6 py-4 bg-pf-surface border-b border-white/5 flex items-center gap-3">
+            {/* <div className="sticky self-start overflow-hidden border top-28 border-white/5" style={{height: '600px'}}>
+              <div className="flex items-center gap-3 px-6 py-4 border-b bg-pf-surface border-white/5">
                 <MapPin size={14} className="text-pf-accent" />
                 <span className="text-[10px] font-black uppercase tracking-widest text-white/40">UAE Project Locations</span>
               </div>
@@ -134,7 +134,7 @@ export default function NewProjectsPage() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </main>
