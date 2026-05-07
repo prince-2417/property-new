@@ -12,7 +12,7 @@ export default function PropertyCard({ property }) {
 
   return (
     <>
-      <div className="pf-card group overflow-hidden flex flex-col h-full bg-pf-surface border border-white/5 hover:border-white/20 transition-all duration-700">
+      <div className="pf-card group overflow-hidden flex flex-col h-full bg-pf-surface border border-white/5 hover:border-white/20 transition-all duration-700 rounded-[5px]">
         <div className="relative h-80 overflow-hidden">
           <img
             src={property.image}

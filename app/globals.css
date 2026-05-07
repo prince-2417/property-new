@@ -44,7 +44,7 @@
   .pf-card {
     background: var(--pf-surface);
     border: 1px solid var(--pf-border);
-    border-radius: 0px; /* Elyse style: Sharp corners */
+    border-radius: 5px;
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
@@ -54,7 +54,7 @@
   }
 
   .btn-pill {
-    @apply rounded-full px-8 py-4 font-black uppercase tracking-[0.2em] text-[10px] transition-all duration-500;
+    @apply rounded-md px-8 py-4 font-black uppercase tracking-[0.2em] text-[10px] transition-all duration-500;
   }
 
   .btn-primary {
