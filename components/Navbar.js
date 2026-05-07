@@ -35,7 +35,7 @@ export default function Navbar() {
           : 'bg-gradient-to-b from-black/50 to-transparent py-4'
       }`}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
+      <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
         <Link href="/" className="text-2xl font-normal tracking-tighter text-pf-heading flex items-center gap-2 group">
           <span className="font-serif italic text-3xl group-hover:text-white transition-colors">Property</span>
         </Link>
@@ -72,7 +72,7 @@ export default function Navbar() {
 
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 text-white hover:text-pf-accent transition-colors"
+            className="md:hidden p-2 text-white hover:text-pf-accent transition-colors"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -81,7 +81,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-pf-background flex flex-col items-center justify-center space-y-12 animate-in fade-in duration-500">
+        <div className="fixed inset-0 z-[999] bg-pf-background flex flex-col items-center justify-center space-y-6 animate-in fade-in duration-500">
           <button 
             onClick={() => setIsMobileMenuOpen(false)}
             className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors"
@@ -94,7 +94,7 @@ export default function Navbar() {
               key={link.name} 
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="font-serif text-5xl text-white hover:italic hover:text-pf-accent transition-all"
+              className="font-serif text-2xl text-white hover:italic hover:text-pf-accent transition-all"
             >
               {link.name}
             </Link>

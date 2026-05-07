@@ -96,7 +96,7 @@ export default function BuyPage() {
                   </select>
                 </div>
               </div>
-              <PropertyGrid listings={filteredProperties} />
+              <PropertyGrid listings={filteredProperties} cols={2} />
             </div>
 
             <aside className="w-full xl:w-[450px] space-y-12">

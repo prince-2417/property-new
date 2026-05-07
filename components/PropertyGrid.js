@@ -2,7 +2,7 @@
 import PropertyCard from './PropertyCard';
 import { Building2 } from 'lucide-react';
 
-export default function PropertyGrid({ listings }) {
+export default function PropertyGrid({ listings, cols = 3 }) {
   if (!listings || listings.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-32 px-4 text-center bg-pf-surface border border-white/5 relative overflow-hidden group">
@@ -16,8 +16,10 @@ export default function PropertyGrid({ listings }) {
     );
   }
 
+  const gridClass = cols === 2 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+    <div className={`grid ${gridClass} gap-12`}>
       {listings.map((property) => (
         <PropertyCard key={property.id} property={property} />
       ))}

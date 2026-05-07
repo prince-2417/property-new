@@ -20,8 +20,8 @@ export default function TravelTimeSection() {
           <h2 className="editorial-heading text-pf-heading">Location <br /><span className="italic font-light text-white">Insights</span></h2>
         </div>
 
-        <div className="grid gap-20 lg:grid-cols-[1fr_1.3fr]">
-          <div className="pf-card p-12 bg-pf-surface border-white/5 shadow-2xl">
+        <div className="grid gap-10 sm:gap-20 grid-cols-1 lg:grid-cols-[1fr_1.3fr]">
+          <div className="pf-card p-6 sm:p-12 bg-pf-surface border-white/5 shadow-2xl">
             <div className="space-y-12">
               <div className="space-y-6">
                 <div className="flex items-center gap-3 text-[10px] font-black text-white/30 uppercase tracking-widest px-1">
@@ -92,7 +92,7 @@ export default function TravelTimeSection() {
 
           <div className="space-y-8">
             {topProperties.map((property) => (
-              <div key={property.id} className="pf-card p-10 bg-pf-surface border-white/5 hover:border-white/20 transition-all duration-700">
+              <div key={property.id} className="pf-card p-6 sm:p-10 bg-pf-surface border-white/5 hover:border-white/20 transition-all duration-700">
                 <div className="flex justify-between items-end">
                   <div className="space-y-4">
                     <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/30">{property.location}</p>
@@ -103,16 +103,16 @@ export default function TravelTimeSection() {
                   </div>
                 </div>
                 
-                <div className="mt-10 pt-10 border-t border-white/5 flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-white">
-                    <span className="text-pf-accent italic font-serif text-xl normal-case">{time}m</span>
+                <div className="mt-10 pt-10 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white">
+                    <span className="text-pf-accent italic font-serif text-lg sm:text-xl normal-case">{time}m</span>
                     <span className="opacity-30">to</span>
-                    <span>{location}</span>
+                    <span className="break-all">{location}</span>
                     <span className="opacity-30">via</span>
                     <span>{mode}</span>
                   </div>
-                  <button className="text-white/40 hover:text-white transition-colors">
-                    <ChevronRight size={24} />
+                  <button className="text-white/40 hover:text-white transition-colors shrink-0">
+                    <ChevronRight size={20} />
                   </button>
                 </div>
               </div>

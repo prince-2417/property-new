@@ -18,9 +18,9 @@ export default function PopularProjectsSection() {
           </button>
         </div>
 
-        <div className="grid gap-px bg-white/5 lg:grid-cols-3 border border-white/5">
+        <div className="grid gap-px bg-white/5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border border-white/5">
           {projects.map((project) => (
-            <div key={project.title} className="group relative overflow-hidden bg-pf-surface h-[600px] transition-all duration-700">
+            <div key={project.title} className="group relative overflow-hidden bg-pf-surface h-[400px] sm:h-[600px] transition-all duration-700">
               <img 
                 src={project.image} 
                 alt={project.title} 

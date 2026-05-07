@@ -17,9 +17,9 @@ export default function SearchByAreaSection() {
           </button>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 sm:gap-8 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
           {areas.map((area) => (
-            <div key={area.name} className="group relative h-[500px] overflow-hidden bg-pf-surface transition-all duration-700 cursor-pointer border border-white/5 hover:border-pf-accent/30">
+            <div key={area.name} className="group relative h-[300px] sm:h-[500px] overflow-hidden bg-pf-surface transition-all duration-700 cursor-pointer border border-white/5 hover:border-pf-accent/30">
               <img 
                 src={area.image} 
                 alt={area.name} 

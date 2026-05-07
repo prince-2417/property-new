@@ -41,7 +41,7 @@ export default function PropertyCard({ property }) {
           </button>
         </div>
 
-        <div className="p-8 flex flex-col flex-1">
+        <div className="p-5 sm:p-8 flex flex-col flex-1">
           <div className="mb-6 flex items-center justify-between">
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-pf-accent">{property.tag}</span>
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30">{property.location.split(',')[0]}</span>

@@ -16,7 +16,7 @@ export default function Hero({ onSearch }) {
 
   
   return (
-    <section className="relative min-h-[110vh] flex items-center pt-28 overflow-hidden">
+    <section className="relative min-h-[110vh] flex items-center pt-20 pb-10 overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -35,12 +35,12 @@ export default function Hero({ onSearch }) {
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/70">ELYSE RESIDENCE • COLLECTION 2024</span>
           </div> */}
 
-          <h1 className="editorial-heading text-pf-heading animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
+          <h1 className="editorial-heading text-pf-heading animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100 text-4xl sm:text-6xl md:text-8xl">
             Elevating the <br />
             <span className="italic font-light opacity-80">Standard of Luxury</span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-white/50 max-w-2xl mx-auto font-light leading-relaxed animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-200">
+          <p className="text-base sm:text-xl md:text-2xl text-white/50 max-w-2xl mx-auto font-light leading-relaxed animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-200">
             A curated selection of the most exclusive residences across the UAE's most prestigious locations.
           </p>
         </div>
