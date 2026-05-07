@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Footer() {
@@ -23,9 +23,9 @@ export default function Footer() {
             <div className="space-y-6">
               <p className="text-[10px] font-black uppercase tracking-[0.5em] text-white/20">Connect with the elite</p>
               <div className="flex gap-8">
-                {[Facebook, Twitter, Instagram, Youtube].map((Icon, idx) => (
-                  <a key={idx} href="#" className="text-white/20 hover:text-pf-heading transition-all transform hover:scale-110 hover:-translate-y-1">
-                    <Icon size={24} />
+                {['FB', 'TW', 'IG', 'YT'].map((label, idx) => (
+                  <a key={idx} href="#" className="text-white/20 hover:text-pf-heading transition-all transform hover:scale-110 hover:-translate-y-1 text-xs font-black tracking-widest">
+                    {label}
                   </a>
                 ))}
               </div>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Mail, Lock, User, ArrowRight, Chrome, Github } from 'lucide-react';
+import { Mail, Lock, User, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function SignupPage() {
@@ -125,10 +125,10 @@ export default function SignupPage() {
 
             <div className="grid grid-cols-2 gap-4">
               <button className="flex items-center justify-center gap-2 rounded-2xl border border-gray-200 py-3 text-sm font-bold text-pf-heading hover:bg-gray-50 transition">
-                <Chrome size={18} /> Google
+                Google
               </button>
               <button className="flex items-center justify-center gap-2 rounded-2xl border border-gray-200 py-3 text-sm font-bold text-pf-heading hover:bg-gray-50 transition">
-                <Github size={18} /> GitHub
+                GitHub
               </button>
             </div>
 
