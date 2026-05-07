@@ -1,121 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Plus+Jakarta+Sans:wght@200..800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
-
 :root {
-  --pf-background: #f8fafc;
-  --pf-surface: #ffffff;
-  --pf-text: #334155;
-  --pf-heading: #0f172a;
-  --pf-muted: #64748b;
-  --pf-primary: #c5a059;
-  --pf-secondary: #a68241;
-  --pf-accent: #d4af37;
-  --pf-border: #e2e8f0;
-  --pf-shadow: 0 12px 40px -15px rgba(15, 23, 42, 0.08);
+  --pf-background: #0a0a0a;
+  --pf-surface: #141414;
+  --pf-text: #a1a1a1;
+  --pf-heading: #d4b384;
+  --pf-muted: #666666;
+  --pf-primary: #d4b384;
+  --pf-secondary: #222222;
+  --pf-accent: #c5a059;
+  --pf-border: rgba(255, 255, 255, 0.1);
+  --pf-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8);
   --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
 }
 
 @layer base {
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
-    margin: 0;
-    min-height: 100vh;
     background: var(--pf-background);
     color: var(--pf-text);
     font-family: var(--font-sans);
-    line-height: 1.6;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
     color: var(--pf-heading);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
+    font-weight: 600;
   }
 
-  button,
-  input,
-  textarea,
-  select {
-    font: inherit;
+  .container {
+    max-width: 1400px !important;
   }
 }
 
 @layer utilities {
   .pf-card {
     background: var(--pf-surface);
-    border-radius: 24px;
-    box-shadow: var(--pf-shadow);
-    transition:
-      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.3s ease,
-      border-color 0.3s ease;
     border: 1px solid var(--pf-border);
+    border-radius: 0px; /* Elyse style: Sharp corners */
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
   .pf-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 30px 60px -15px rgba(197, 160, 89, 0.15);
-    border-color: rgba(197, 160, 89, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+    background: #1a1a1a;
+  }
+
+  .btn-pill {
+    @apply rounded-full px-8 py-4 font-black uppercase tracking-[0.2em] text-[10px] transition-all duration-500;
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, var(--pf-primary), var(--pf-secondary));
-    color: #ffffff;
-    font-weight: 700;
-    border-radius: 16px;
-    padding: 0.95rem 2rem;
-    transition:
-      all 0.3s ease;
-    box-shadow: 0 10px 20px -10px rgba(197, 160, 89, 0.5);
+    background: var(--pf-primary);
+    color: #000000;
   }
 
   .btn-primary:hover {
-    opacity: 0.95;
-    transform: translateY(-2px);
-    box-shadow: 0 15px 30px -10px rgba(197, 160, 89, 0.6);
+    background: var(--pf-accent);
+    color: #ffffff;
+    transform: scale(1.05);
   }
 
-  .btn-secondary {
-    border-radius: 16px;
+  .btn-outline {
     border: 1px solid var(--pf-border);
-    background: white;
     color: var(--pf-heading);
-    padding: 0.95rem 2rem;
-    font-weight: 700;
-    transition: all 0.3s ease;
   }
 
-  .btn-secondary:hover {
-    background: var(--pf-background);
-    border-color: var(--pf-primary);
-    color: var(--pf-primary);
-    transform: translateY(-1px);
+  .btn-outline:hover {
+    background: var(--pf-heading);
+    color: #000000;
   }
 
-  .glass {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+  .editorial-heading {
+    @apply text-5xl md:text-8xl font-normal leading-[0.9] tracking-tighter;
+    font-family: var(--font-serif);
   }
 
   .glass-dark {
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--pf-border);
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.19,1,0.22,1), transform 0.8s cubic-bezier(0.19,1,0.22,1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.8s cubic-bezier(0.19,1,0.22,1), transform 0.8s cubic-bezier(0.19,1,0.22,1);
+  }
+
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 

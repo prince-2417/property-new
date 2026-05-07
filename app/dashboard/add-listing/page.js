@@ -12,7 +12,8 @@ import {
   CheckCircle2,
   ChevronRight,
   ChevronLeft,
-  Video
+  Video,
+  ArrowRight
 } from 'lucide-react';
 import { useListings } from '@/context/ListingContext';
 
@@ -53,277 +54,203 @@ export default function AddListing() {
   const prevStep = () => setStep(s => s - 1);
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="mx-auto max-w-4xl animate-in fade-in duration-1000">
       {/* Progress Stepper */}
-      <div className="mb-12 flex items-center justify-between px-4">
+      <div className="mb-20 flex items-center justify-between px-10">
         {[1, 2, 3].map((num) => (
           <div key={num} className="flex flex-1 items-center last:flex-none">
-            <div className={`flex h-12 w-12 items-center justify-center rounded-full border-2 font-bold transition-all duration-300 ${
-              step >= num ? 'border-pf-primary bg-pf-primary text-white scale-110 shadow-lg shadow-pf-primary/20' : 'border-gray-200 text-pf-muted'
+            <div className={`flex h-14 w-14 items-center justify-center border transition-all duration-700 ${
+              step >= num ? 'border-pf-accent bg-pf-accent text-white scale-110' : 'border-white/10 text-white/20'
             }`}>
-              {step > num ? <CheckCircle2 size={24} /> : num}
+              {step > num ? <CheckCircle2 size={24} /> : <span className="font-serif italic text-xl">{num}</span>}
             </div>
             {num < 3 && (
-              <div className={`mx-4 h-1 flex-1 rounded transition-colors duration-500 ${
-                step > num ? 'bg-pf-primary' : 'bg-gray-200'
+              <div className={`mx-6 h-px flex-1 transition-all duration-1000 ${
+                step > num ? 'bg-pf-accent' : 'bg-white/10'
               }`} />
             )}
           </div>
         ))}
       </div>
 
-      <div className="pf-card border border-gray-100 bg-white p-8 md:p-12 shadow-2xl shadow-gray-200/50">
+      <div className="bg-pf-surface border border-white/5 p-12 md:p-20 shadow-2xl">
         {step === 1 && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div>
-              <h2 className="text-3xl font-black text-pf-heading">Basic Information</h2>
-              <p className="mt-2 text-pf-muted">Let's start with the essential details of your property.</p>
+          <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className="space-y-4">
+              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent">Step 01</p>
+              <h2 className="font-serif italic text-4xl text-white">Basic <span className="font-normal not-italic">Information</span></h2>
+              <p className="text-white/30 text-sm font-medium">Define the core identity of your residence.</p>
             </div>
 
-            <div className="grid gap-8">
-              <div className="space-y-3">
-                <label className="text-sm font-bold text-pf-heading uppercase tracking-wider">Property Title</label>
+            <div className="space-y-10">
+              <div className="space-y-4">
+                <label className="text-[10px] font-black text-white/40 uppercase tracking-widest px-1">Property Title</label>
                 <input 
                   type="text" 
                   name="title"
                   value={formData.title}
                   onChange={handleChange}
-                  placeholder="e.g. Modern Penthouse with Burj View"
-                  className="w-full rounded-[20px] border border-gray-200 bg-gray-50 px-6 py-5 text-sm font-medium focus:border-pf-primary focus:outline-none focus:ring-4 focus:ring-pf-primary/5 transition-all"
+                  placeholder="e.g. The Grand Penthouse"
+                  className="w-full bg-white/5 border border-white/10 px-8 py-6 text-base font-medium text-white placeholder:text-white/10 focus:border-pf-accent transition-all outline-none"
                 />
               </div>
 
-              <div className="grid gap-8 md:grid-cols-2">
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-pf-heading uppercase tracking-wider">Property Type</label>
+              <div className="grid gap-10 md:grid-cols-2">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest px-1">Property Type</label>
                   <select 
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full rounded-[20px] border border-gray-200 bg-gray-50 px-6 py-5 text-sm font-medium focus:border-pf-primary focus:outline-none transition-all appearance-none"
+                    className="w-full bg-white/5 border border-white/10 px-8 py-6 text-base font-medium text-white focus:border-pf-accent transition-all outline-none appearance-none"
                   >
-                    {propertyTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                    {propertyTypes.map(t => <option key={t} value={t} className="bg-pf-surface">{t}</option>)}
                   </select>
                 </div>
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-pf-heading uppercase tracking-wider">Transaction Type</label>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest px-1">Transaction</label>
                   <select 
                     name="transaction"
                     value={formData.transaction}
                     onChange={handleChange}
-                    className="w-full rounded-[20px] border border-gray-200 bg-gray-50 px-6 py-5 text-sm font-medium focus:border-pf-primary focus:outline-none transition-all appearance-none"
+                    className="w-full bg-white/5 border border-white/10 px-8 py-6 text-base font-medium text-white focus:border-pf-accent transition-all outline-none appearance-none"
                   >
-                    {transactionTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                    {transactionTypes.map(t => <option key={t} value={t} className="bg-pf-surface">{t}</option>)}
                   </select>
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-end pt-4">
-              <button onClick={nextStep} className="btn-primary flex items-center gap-3 px-12 py-5 rounded-2xl text-base font-bold shadow-xl shadow-pf-primary/20 hover:scale-105 active:scale-95 transition-all">
-                Next Step <ChevronRight size={20} />
+            <div className="flex justify-end pt-10">
+              <button onClick={nextStep} className="btn-pill btn-primary px-16 py-6 text-black flex items-center gap-4 group">
+                Next Stage <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
               </button>
             </div>
           </div>
         )}
 
         {step === 2 && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div>
-              <h2 className="text-3xl font-black text-pf-heading">Location & Pricing</h2>
-              <p className="mt-2 text-pf-muted">Where is it located and what is your asking price?</p>
+          <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className="space-y-4">
+              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent">Step 02</p>
+              <h2 className="font-serif italic text-4xl text-white">Location & <span className="font-normal not-italic">Valuation</span></h2>
+              <p className="text-white/30 text-sm font-medium">Position your residence within the elite market.</p>
             </div>
 
-            <div className="grid gap-8">
-              <div className="space-y-3">
-                <label className="text-sm font-bold text-pf-heading flex items-center gap-2 uppercase tracking-wider">
-                  <MapPin size={18} className="text-pf-primary" /> Location
-                </label>
-                <input 
-                  type="text" 
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  placeholder="e.g. Dubai Marina, Dubai"
-                  className="w-full rounded-[20px] border border-gray-200 bg-gray-50 px-6 py-5 text-sm font-medium focus:border-pf-primary focus:outline-none focus:ring-4 focus:ring-pf-primary/5 transition-all"
-                />
+            <div className="space-y-10">
+              <div className="space-y-4">
+                <label className="text-[10px] font-black text-white/40 uppercase tracking-widest px-1">Location Address</label>
+                <div className="relative">
+                  <MapPin size={18} className="absolute left-8 top-1/2 -translate-y-1/2 text-pf-accent" />
+                  <input 
+                    type="text" 
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    placeholder="e.g. Palm Jumeirah, Dubai"
+                    className="w-full bg-white/5 border border-white/10 pl-16 pr-8 py-6 text-base font-medium text-white placeholder:text-white/10 focus:border-pf-accent transition-all outline-none"
+                  />
+                </div>
               </div>
 
-              <div className="space-y-3">
-                <label className="text-sm font-bold text-pf-heading flex items-center gap-2 uppercase tracking-wider">
-                  <CircleDollarSign size={18} className="text-pf-primary" /> Price (AED)
-                </label>
-                <input 
-                  type="number" 
-                  name="price"
-                  value={formData.price}
-                  onChange={handleChange}
-                  placeholder="e.g. 2,500,000"
-                  className="w-full rounded-[20px] border border-gray-200 bg-gray-50 px-6 py-5 text-sm font-medium focus:border-pf-primary focus:outline-none focus:ring-4 focus:ring-pf-primary/5 transition-all"
-                />
+              <div className="space-y-4">
+                <label className="text-[10px] font-black text-white/40 uppercase tracking-widest px-1">Asking Price (AED)</label>
+                <div className="relative">
+                  <CircleDollarSign size={18} className="absolute left-8 top-1/2 -translate-y-1/2 text-pf-accent" />
+                  <input 
+                    type="number" 
+                    name="price"
+                    value={formData.price}
+                    onChange={handleChange}
+                    placeholder="e.g. 5,500,000"
+                    className="w-full bg-white/5 border border-white/10 pl-16 pr-8 py-6 text-base font-medium text-white placeholder:text-white/10 focus:border-pf-accent transition-all outline-none"
+                  />
+                </div>
               </div>
 
-              <div className="grid gap-6 md:grid-cols-3">
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-pf-heading flex items-center gap-2 uppercase tracking-wider">
-                    <BedDouble size={18} className="text-pf-primary" /> Beds
-                  </label>
-                  <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange} className="w-full rounded-[20px] border border-gray-200 bg-gray-50 px-6 py-5 text-sm font-medium" />
+              <div className="grid gap-10 md:grid-cols-3">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest px-1">Bedrooms</label>
+                  <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange} className="w-full bg-white/5 border border-white/10 px-8 py-6 text-base font-medium text-white focus:border-pf-accent outline-none" />
                 </div>
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-pf-heading flex items-center gap-2 uppercase tracking-wider">
-                    <Bath size={18} className="text-pf-primary" /> Baths
-                  </label>
-                  <input type="number" name="bathrooms" value={formData.bathrooms} onChange={handleChange} className="w-full rounded-[20px] border border-gray-200 bg-gray-50 px-6 py-5 text-sm font-medium" />
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest px-1">Bathrooms</label>
+                  <input type="number" name="bathrooms" value={formData.bathrooms} onChange={handleChange} className="w-full bg-white/5 border border-white/10 px-8 py-6 text-base font-medium text-white focus:border-pf-accent outline-none" />
                 </div>
-                <div className="space-y-3">
-                  <label className="text-sm font-bold text-pf-heading flex items-center gap-2 uppercase tracking-wider">
-                    <Maximize size={18} className="text-pf-primary" /> Area (sqft)
-                  </label>
-                  <input type="number" name="area" value={formData.area} onChange={handleChange} className="w-full rounded-[20px] border border-gray-200 bg-gray-50 px-6 py-5 text-sm font-medium" />
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black text-white/40 uppercase tracking-widest px-1">Area (sqft)</label>
+                  <input type="number" name="area" value={formData.area} onChange={handleChange} className="w-full bg-white/5 border border-white/10 px-8 py-6 text-base font-medium text-white focus:border-pf-accent outline-none" />
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-between pt-4">
-              <button onClick={prevStep} className="btn-secondary flex items-center gap-3 px-10 py-5 rounded-2xl text-base font-bold transition-all">
+            <div className="flex justify-between pt-10">
+              <button onClick={prevStep} className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 hover:text-white transition-all flex items-center gap-4">
                 <ChevronLeft size={20} /> Back
               </button>
-              <button onClick={nextStep} className="btn-primary flex items-center gap-3 px-12 py-5 rounded-2xl text-base font-bold shadow-xl shadow-pf-primary/20 hover:scale-105 active:scale-95 transition-all">
-                Next Step <ChevronRight size={20} />
+              <button onClick={nextStep} className="btn-pill btn-primary px-16 py-6 text-black flex items-center gap-4 group">
+                Next Stage <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
               </button>
             </div>
           </div>
         )}
 
         {step === 3 && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div>
-              <h2 className="text-3xl font-black text-pf-heading">Images & Video</h2>
-              <p className="mt-2 text-pf-muted">Upload high-quality visuals to make your listing stand out.</p>
+          <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className="space-y-4">
+              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent">Step 03</p>
+              <h2 className="font-serif italic text-4xl text-white">Visuals & <span className="font-normal not-italic">Narrative</span></h2>
+              <p className="text-white/30 text-sm font-medium">Capture the essence and legacy of the property.</p>
             </div>
 
-            <div className="grid gap-8">
+            <div className="space-y-12">
               {/* Image Upload */}
-              <div className="space-y-4">
-                <label className="text-sm font-black text-pf-heading flex items-center gap-2 uppercase tracking-widest">
-                  <ImageIcon size={18} className="text-pf-primary" /> Property Image
-                </label>
-                <div className="relative group">
-                  <div className={`relative flex flex-col items-center justify-center rounded-[32px] border-2 border-dashed transition-all duration-300 min-h-[240px] overflow-hidden ${
-                    formData.image ? 'border-pf-primary bg-pf-primary/5' : 'border-slate-200 bg-slate-50 hover:border-pf-primary hover:bg-slate-100'
-                  }`}>
-                    {formData.image ? (
-                      <>
-                        <img src={formData.image} alt="Preview" className="absolute inset-0 h-full w-full object-cover" />
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                          <button 
-                            onClick={() => setFormData(prev => ({ ...prev, image: '' }))}
-                            className="bg-white text-red-500 p-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:scale-110 transition-transform"
-                          >
-                            Remove Image
-                          </button>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="text-center p-8">
-                        <div className="h-16 w-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-slate-400 mx-auto mb-4 group-hover:text-pf-primary group-hover:scale-110 transition-all">
-                          <ImageIcon size={32} />
-                        </div>
-                        <p className="text-sm font-black text-slate-900">Click to upload image</p>
-                        <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">PNG, JPG or WebP (Max 5MB)</p>
+              <div className="space-y-6">
+                <label className="text-[10px] font-black text-white/40 uppercase tracking-widest px-1">Hero Image</label>
+                <div className="relative group min-h-[300px] border border-white/10 bg-white/5 flex flex-col items-center justify-center transition-all hover:border-pf-accent/50 cursor-pointer overflow-hidden">
+                  {formData.image ? (
+                    <>
+                      <img src={formData.image} alt="Preview" className="absolute inset-0 h-full w-full object-cover opacity-60" />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <button onClick={() => setFormData(prev => ({ ...prev, image: '' }))} className="px-8 py-4 bg-white text-black font-black text-[10px] uppercase tracking-widest">Replace Media</button>
                       </div>
-                    )}
-                    <input 
-                      type="file" 
-                      accept="image/*"
-                      onChange={(e) => {
-                        const file = e.target.files[0];
-                        if (file) {
-                          const reader = new FileReader();
-                          reader.onloadend = () => {
-                            setFormData(prev => ({ ...prev, image: reader.result }));
-                          };
-                          reader.readAsDataURL(file);
-                        }
-                      }}
-                      className="absolute inset-0 opacity-0 cursor-pointer"
-                    />
-                  </div>
+                    </>
+                  ) : (
+                    <div className="text-center p-12 space-y-4">
+                      <ImageIcon size={40} className="mx-auto text-white/10 group-hover:text-pf-accent transition-colors" />
+                      <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 group-hover:text-white transition-colors">Select High-Resolution Image</p>
+                    </div>
+                  )}
+                  <input type="file" accept="image/*" onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => setFormData(prev => ({ ...prev, image: reader.result }));
+                      reader.readAsDataURL(file);
+                    }
+                  }} className="absolute inset-0 opacity-0 cursor-pointer" />
                 </div>
               </div>
 
-              {/* Video Upload */}
-              <div className="space-y-4">
-                <label className="text-sm font-black text-pf-heading flex items-center gap-2 uppercase tracking-widest">
-                  <Video size={18} className="text-pf-primary" /> Property Video
-                </label>
-                <div className="relative group">
-                  <div className={`relative flex flex-col items-center justify-center rounded-[32px] border-2 border-dashed transition-all duration-300 min-h-[160px] overflow-hidden ${
-                    formData.videoUrl ? 'border-pf-primary bg-pf-primary/5' : 'border-slate-200 bg-slate-50 hover:border-pf-primary hover:bg-slate-100'
-                  }`}>
-                    {formData.videoUrl ? (
-                      <div className="flex items-center gap-4 p-6 w-full">
-                        <div className="h-12 w-12 rounded-xl bg-pf-primary/10 flex items-center justify-center text-pf-primary">
-                          <Video size={24} />
-                        </div>
-                        <div className="flex-1 overflow-hidden">
-                          <p className="text-sm font-black text-slate-900 truncate">Video uploaded successfully</p>
-                          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Ready for processing</p>
-                        </div>
-                        <button 
-                          onClick={() => setFormData(prev => ({ ...prev, videoUrl: '' }))}
-                          className="text-red-500 font-black text-[10px] uppercase tracking-widest hover:underline"
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="text-center p-6">
-                        <p className="text-sm font-black text-slate-900">Upload property video</p>
-                        <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">MP4 or MOV (Max 20MB)</p>
-                      </div>
-                    )}
-                    <input 
-                      type="file" 
-                      accept="video/*"
-                      onChange={(e) => {
-                        const file = e.target.files[0];
-                        if (file) {
-                          // For large videos, we'd normally upload to a server.
-                          // Here we use a fake path or small base64 for demo purposes.
-                          const reader = new FileReader();
-                          reader.onloadend = () => {
-                            setFormData(prev => ({ ...prev, videoUrl: reader.result }));
-                          };
-                          reader.readAsDataURL(file);
-                        }
-                      }}
-                      className="absolute inset-0 opacity-0 cursor-pointer"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <label className="text-sm font-black text-pf-heading uppercase tracking-widest">Detailed Description</label>
+              <div className="space-y-6">
+                <label className="text-[10px] font-black text-white/40 uppercase tracking-widest px-1">Editorial Description</label>
                 <textarea 
-                  rows={5}
+                  rows={6}
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
-                  placeholder="Tell us more about the property, its features, and the neighborhood..."
-                  className="w-full rounded-[24px] border border-slate-100 bg-slate-50 px-8 py-6 text-sm font-bold text-slate-700 focus:border-pf-primary focus:bg-white focus:outline-none focus:ring-4 focus:ring-pf-primary/5 transition-all placeholder:text-slate-300"
+                  placeholder="Describe the architectural language, interior craftsmanship, and the lifestyle this residence offers..."
+                  className="w-full bg-white/5 border border-white/10 px-8 py-8 text-base font-medium text-white placeholder:text-white/10 focus:border-pf-accent transition-all outline-none font-serif italic"
                 />
               </div>
             </div>
 
-            <div className="flex justify-between pt-8">
-              <button onClick={prevStep} className="flex items-center gap-3 px-10 py-5 rounded-2xl text-sm font-black uppercase tracking-widest text-slate-400 hover:bg-slate-50 hover:text-pf-primary transition-all">
+            <div className="flex justify-between pt-10">
+              <button onClick={prevStep} className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 hover:text-white transition-all flex items-center gap-4">
                 <ChevronLeft size={20} /> Back
               </button>
-              <button onClick={handleSubmit} className="flex items-center gap-3 px-12 py-5 rounded-3xl bg-pf-primary text-white text-base font-black uppercase tracking-widest shadow-2xl shadow-pf-primary/30 hover:scale-105 active:scale-95 transition-all">
-                Submit Listing <CheckCircle2 size={24} />
+              <button onClick={handleSubmit} className="btn-pill btn-primary px-16 py-6 text-black flex items-center gap-4 group">
+                Publish Collection <CheckCircle2 size={20} className="group-hover:scale-110 transition-transform" />
               </button>
             </div>
           </div>

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useListings } from '@/context/ListingContext';
-import { Building2, Plus, Trash2, Edit2, Save, X, Image as ImageIcon } from 'lucide-react';
+import { Building2, Plus, Trash2, Edit2, Save, X, Image as ImageIcon, ArrowUpRight } from 'lucide-react';
 
 export default function AdminManageProjects() {
   const { projects, updateProjects } = useListings();
@@ -54,144 +54,145 @@ export default function AdminManageProjects() {
   };
 
   return (
-    <div className="space-y-10 animate-in fade-in duration-700">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl font-black text-slate-900 tracking-tight">Signature Projects</h1>
-          <p className="text-slate-500 font-bold mt-1 uppercase tracking-widest text-xs">Manage home page featured developments</p>
+    <div className="space-y-16 animate-in fade-in duration-1000">
+      <div className="flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-4">
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent">Portfolio</p>
+          <h1 className="font-serif italic text-5xl text-white">Signature <span className="font-normal not-italic">Developments</span></h1>
         </div>
         {!isAdding && (
           <button 
             onClick={startAdding}
-            className="flex items-center gap-2 rounded-2xl bg-pf-primary px-6 py-3 text-sm font-black text-white shadow-xl shadow-pf-primary/20 hover:scale-105 active:scale-95 transition-all"
+            className="btn-pill btn-primary text-black flex items-center gap-3"
           >
-            <Plus size={18} /> Add Project
+            <Plus size={18} /> New Project
           </button>
         )}
       </div>
 
       {(isAdding || editingId) && editForm && (
-        <div className="pf-card p-10 border-2 border-pf-primary/20 bg-pf-primary/[0.02]">
-          <div className="flex items-center justify-between mb-8">
-            <h3 className="text-xl font-black text-pf-heading uppercase tracking-widest">
-              {isAdding ? 'Add New Project' : 'Edit Project'}
+        <div className="bg-pf-surface border border-pf-accent/30 p-12 md:p-16 animate-in slide-in-from-top-8 duration-700">
+          <div className="flex items-center justify-between mb-12">
+            <h3 className="font-serif italic text-3xl text-white">
+              {isAdding ? 'Initialising New Project' : 'Modifying Project Legacy'}
             </h3>
-            <button onClick={() => { setEditingId(null); setIsAdding(false); }} className="text-slate-400 hover:text-pf-heading">
-              <X size={24} />
+            <button onClick={() => { setEditingId(null); setIsAdding(false); }} className="text-white/20 hover:text-white transition-colors">
+              <X size={28} />
             </button>
           </div>
           
-          <div className="grid gap-8 md:grid-cols-2">
-            <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Project Title</label>
+          <div className="grid gap-10 md:grid-cols-2">
+            <div className="space-y-4">
+              <label className="text-[10px] font-black uppercase tracking-widest text-white/30 px-1">Project Identity</label>
               <input 
                 type="text" 
                 value={editForm.title}
                 onChange={e => setEditForm({...editForm, title: e.target.value})}
-                className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-bold focus:border-pf-primary outline-none transition-all"
-                placeholder="e.g. Marina Heights"
+                className="w-full bg-white/5 border border-white/10 px-8 py-6 text-base font-medium text-white placeholder:text-white/10 focus:border-pf-accent transition-all outline-none"
+                placeholder="Project Title"
               />
             </div>
-            <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Location</label>
+            <div className="space-y-4">
+              <label className="text-[10px] font-black uppercase tracking-widest text-white/30 px-1">Prime Location</label>
               <input 
                 type="text" 
                 value={editForm.location}
                 onChange={e => setEditForm({...editForm, location: e.target.value})}
-                className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-bold focus:border-pf-primary outline-none transition-all"
-                placeholder="e.g. Dubai Marina"
+                className="w-full bg-white/5 border border-white/10 px-8 py-6 text-base font-medium text-white placeholder:text-white/10 focus:border-pf-accent transition-all outline-none"
+                placeholder="Location"
               />
             </div>
-            <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Price Range</label>
+            <div className="space-y-4">
+              <label className="text-[10px] font-black uppercase tracking-widest text-white/30 px-1">Valuation Range</label>
               <input 
                 type="text" 
                 value={editForm.price}
                 onChange={e => setEditForm({...editForm, price: e.target.value})}
-                className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-bold focus:border-pf-primary outline-none transition-all"
-                placeholder="e.g. From AED 3.4M"
+                className="w-full bg-white/5 border border-white/10 px-8 py-6 text-base font-medium text-white placeholder:text-white/10 focus:border-pf-accent transition-all outline-none"
+                placeholder="e.g. From AED 5M"
               />
             </div>
-            <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Status</label>
+            <div className="space-y-4">
+              <label className="text-[10px] font-black uppercase tracking-widest text-white/30 px-1">Collection Status</label>
               <input 
                 type="text" 
                 value={editForm.status}
                 onChange={e => setEditForm({...editForm, status: e.target.value})}
-                className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-bold focus:border-pf-primary outline-none transition-all"
-                placeholder="e.g. Ready to move"
+                className="w-full bg-white/5 border border-white/10 px-8 py-6 text-base font-medium text-white placeholder:text-white/10 focus:border-pf-accent transition-all outline-none"
+                placeholder="e.g. Limited Edition"
               />
             </div>
-            <div className="md:col-span-2 space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Project Image</label>
-              <div className="flex gap-4">
-                <div className="flex-1 relative">
+            <div className="md:col-span-2 space-y-4">
+              <label className="text-[10px] font-black uppercase tracking-widest text-white/30 px-1">Development Visual</label>
+              <div className="flex gap-6">
+                <div className="flex-1 relative border-2 border-dashed border-white/10 bg-white/5 hover:border-pf-accent transition-all cursor-pointer h-32 flex flex-col items-center justify-center">
                   <input 
                     type="file" 
                     accept="image/*"
                     onChange={handleImageUpload}
                     className="absolute inset-0 opacity-0 cursor-pointer z-10"
                   />
-                  <div className="w-full rounded-2xl border border-dashed border-slate-300 bg-white px-5 py-4 text-sm font-bold text-slate-400 flex items-center justify-center gap-3">
-                    <ImageIcon size={20} />
-                    <span>{editForm.image ? 'Change Image' : 'Upload Image'}</span>
-                  </div>
+                  <ImageIcon size={24} className="text-white/10 mb-2" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-white/20">Replace Media</span>
                 </div>
-                <div className="h-14 w-14 rounded-2xl border border-slate-200 overflow-hidden bg-slate-50 flex items-center justify-center">
-                  {editForm.image ? <img src={editForm.image} className="h-full w-full object-cover" /> : <ImageIcon className="text-slate-300" />}
+                <div className="h-32 w-48 border border-white/10 overflow-hidden bg-pf-background flex items-center justify-center">
+                  {editForm.image ? <img src={editForm.image} className="h-full w-full object-cover" /> : <ImageIcon className="text-white/5" />}
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="mt-10 flex justify-end gap-4">
+          <div className="mt-16 flex justify-end gap-8">
             <button 
               onClick={() => { setEditingId(null); setIsAdding(false); }}
-              className="px-8 py-4 text-sm font-black uppercase tracking-widest text-slate-400 hover:text-pf-heading transition-all"
+              className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 hover:text-white transition-all"
             >
-              Cancel
+              Discard Changes
             </button>
             <button 
               onClick={isAdding ? handleAdd : handleSave}
-              className="flex items-center gap-2 rounded-2xl bg-slate-900 px-10 py-4 text-sm font-black uppercase tracking-widest text-white shadow-xl hover:bg-pf-primary transition-all"
+              className="btn-pill btn-primary px-16 py-6 text-black flex items-center gap-4"
             >
-              <Save size={18} /> {isAdding ? 'Add Project' : 'Save Changes'}
+              <Save size={18} /> {isAdding ? 'Commence Project' : 'Finalise Legacy'}
             </button>
           </div>
         </div>
       )}
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <div key={project.id} className="pf-card group overflow-hidden bg-white border border-slate-100 hover:shadow-2xl transition-all duration-500">
-            <div className="relative h-48 overflow-hidden">
-              <img src={project.image} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-gradient-to-t from-pf-heading/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-start justify-end p-4 z-20">
-                <div className="flex flex-col gap-2 transform translate-x-4 group-hover:translate-x-0 transition-transform duration-500">
-                  <button 
-                    onClick={() => handleEdit(project)}
-                    className="h-10 w-10 rounded-xl bg-white text-pf-heading flex items-center justify-center hover:bg-pf-primary hover:text-white shadow-lg transition-all"
-                  >
-                    <Edit2 size={18} />
-                  </button>
-                  <button 
-                    onClick={() => handleDelete(project.id)}
-                    className="h-10 w-10 rounded-xl bg-white text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white shadow-lg transition-all"
-                  >
-                    <Trash2 size={18} />
-                  </button>
-                </div>
+          <div key={project.id} className="bg-pf-surface border border-white/5 group overflow-hidden transition-all duration-700 hover:border-pf-accent/30">
+            <div className="relative h-64 overflow-hidden">
+              <img src={project.image} className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 z-20">
+                <button 
+                  onClick={() => handleEdit(project)}
+                  className="h-14 w-14 bg-white text-black flex items-center justify-center hover:bg-pf-accent hover:text-white transition-all"
+                >
+                  <Edit2 size={20} />
+                </button>
+                <button 
+                  onClick={() => handleDelete(project.id)}
+                  className="h-14 w-14 bg-white text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"
+                >
+                  <Trash2 size={20} />
+                </button>
               </div>
             </div>
-            <div className="p-8">
-              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-pf-primary bg-pf-primary/5 px-3 py-1 rounded-lg border border-pf-primary/10">
-                {project.status}
-              </span>
-              <h3 className="text-xl font-black text-pf-heading mt-4 tracking-tight">{project.title}</h3>
-              <p className="text-sm font-bold text-slate-400 mt-1">{project.location}</p>
-              <div className="mt-6 flex items-center justify-between border-t border-slate-50 pt-6">
-                <span className="text-lg font-black text-pf-heading">{project.price}</span>
-                <Building2 size={20} className="text-slate-100" />
+            <div className="p-10 space-y-6">
+              <div className="flex items-center justify-between">
+                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-pf-accent border border-pf-accent/20 px-3 py-1">
+                  {project.status}
+                </span>
+                <Building2 size={16} className="text-white/10" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="font-serif italic text-3xl text-white group-hover:text-pf-accent transition-colors">{project.title}</h3>
+                <p className="text-[10px] font-black uppercase tracking-widest text-white/30">{project.location}</p>
+              </div>
+              <div className="pt-6 border-t border-white/5 flex items-center justify-between">
+                <span className="font-serif text-xl text-white/60">{project.price}</span>
+                <ArrowUpRight size={18} className="text-white/10 group-hover:text-pf-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
               </div>
             </div>
           </div>

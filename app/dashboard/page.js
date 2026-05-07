@@ -14,7 +14,8 @@ import {
   Calendar,
   TrendingUp,
   CheckCircle,
-  Pencil
+  Pencil,
+  ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
@@ -33,73 +34,86 @@ export default function UserDashboard() {
     setIsEditModalOpen(true);
   };
 
-  // Show ONLY user's listings
   const myListings = userListings.filter(l => l.ownerId === user?.id);
-  
-  // Show bookings for the user's properties
   const myPropertyBookings = bookings.filter(b => b.ownerId === user?.id);
 
   const stats = [
-    { name: 'My Active Listings', value: myListings.length.toString(), icon: Building2, change: '+1', changeType: 'increase' },
-    { name: 'Bookings Received', value: myPropertyBookings.length.toString(), icon: Calendar, change: `+${myPropertyBookings.length}`, changeType: 'increase' },
-    { name: 'Total Revenue', value: `AED ${myPropertyBookings.length * 5000}`, icon: TrendingUp, change: '+100%', changeType: 'increase' },
-    { name: 'Total Favorites', value: '156', icon: Heart, change: '+12%', changeType: 'increase' },
+    { name: 'Active Listings', value: myListings.length.toString(), icon: Building2 },
+    { name: 'Total Bookings', value: myPropertyBookings.length.toString(), icon: Calendar },
+    { name: 'Revenue Guide', value: `AED ${(myPropertyBookings.length * 5000).toLocaleString()}`, icon: TrendingUp },
   ];
 
   return (
-    <div className="container mx-auto px-4 py-32 space-y-12">
-      {/* ... Welcome Section ... */}
-      
-      {/* ... Stats Grid ... */}
-
-      {/* Main Content Area */}
-      <div className="grid gap-12 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-10">
-          <div className="flex items-center justify-between">
-            <h3 className="text-3xl font-black text-pf-heading tracking-tight">Recent Bookings</h3>
-            <span className="rounded-full bg-pf-primary/10 px-4 py-1.5 text-xs font-black text-pf-primary uppercase tracking-widest">
-              {myPropertyBookings.length} Requests
-            </span>
+    <div className="space-y-20 animate-in fade-in duration-1000">
+      {/* Stats Grid */}
+      <div className="grid gap-px bg-white/5 border border-white/5 sm:grid-cols-3">
+        {stats.map((stat) => (
+          <div key={stat.name} className="relative overflow-hidden bg-pf-surface p-12 transition-all hover:bg-[#1a1a1a] group">
+            <div className="relative z-10 space-y-6">
+              <div className="flex items-center gap-3">
+                <stat.icon size={18} className="text-pf-accent" />
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">{stat.name}</p>
+              </div>
+              <p className="text-5xl font-normal text-white font-serif italic tracking-tight group-hover:translate-x-2 transition-transform duration-500">{stat.value}</p>
+            </div>
+            <div className="absolute -bottom-10 -right-10 text-white/5 opacity-10 transition-transform group-hover:scale-110 duration-700">
+              <stat.icon size={200} />
+            </div>
           </div>
+        ))}
+      </div>
 
-          <div className="rounded-[48px] border border-gray-100 bg-white shadow-2xl overflow-hidden">
+      <div className="grid gap-20 lg:grid-cols-3">
+        <div className="lg:col-span-2 space-y-20">
+          {/* Recent Bookings */}
+          <div className="bg-pf-surface border border-white/5">
+            <div className="flex items-center justify-between border-b border-white/5 p-12">
+              <div className="space-y-4">
+                <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent">Requests</p>
+                <h2 className="font-serif italic text-4xl">Recent <span className="font-normal not-italic">Bookings</span></h2>
+              </div>
+              <div className="h-16 w-16 border border-white/10 flex items-center justify-center text-white/30 italic font-serif">
+                {myPropertyBookings.length}
+              </div>
+            </div>
+            
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="border-b border-gray-50 text-[10px] font-black uppercase tracking-[0.2em] text-pf-muted">
-                    <th className="px-10 py-6">Property</th>
-                    <th className="px-10 py-6">Customer</th>
-                    <th className="px-10 py-6">Schedule</th>
-                    <th className="px-10 py-6 text-right">Status</th>
+                  <tr className="border-b border-white/5 text-[9px] font-black uppercase tracking-[0.3em] text-white/20">
+                    <th className="px-12 py-8">Residence</th>
+                    <th className="px-12 py-8">Customer</th>
+                    <th className="px-12 py-8">Schedule</th>
+                    <th className="px-12 py-8 text-right">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-50">
+                <tbody className="divide-y divide-white/5">
                   {myPropertyBookings.length === 0 ? (
                     <tr>
-                      <td colSpan="4" className="px-10 py-20 text-center text-pf-muted font-bold uppercase tracking-widest opacity-40">
-                        No bookings yet
+                      <td colSpan="4" className="px-12 py-32 text-center">
+                        <p className="text-white/10 font-serif italic text-2xl">No active requests</p>
                       </td>
                     </tr>
                   ) : (
                     myPropertyBookings.map((booking) => (
-                      <tr key={booking.id} className="group hover:bg-pf-background transition-colors">
-                        <td className="px-10 py-6">
-                          <div className="flex items-center gap-4">
-                            <img src={booking.propertyImage} className="h-12 w-12 rounded-xl object-cover" alt="" />
-                            <span className="font-bold text-pf-heading">{booking.propertyTitle}</span>
+                      <tr key={booking.id} className="group hover:bg-white/5 transition-all duration-500">
+                        <td className="px-12 py-8">
+                          <div className="flex items-center gap-6">
+                            <img src={booking.propertyImage} className="h-14 w-14 grayscale group-hover:grayscale-0 transition-all duration-700" alt="" />
+                            <span className="font-serif text-2xl text-white group-hover:italic transition-all">{booking.propertyTitle}</span>
                           </div>
                         </td>
-                        <td className="px-10 py-6">
-                          <p className="font-bold text-pf-heading">{booking.customerName}</p>
-                          <p className="text-xs text-pf-muted">{booking.customerPhone}</p>
+                        <td className="px-12 py-8">
+                          <p className="text-[13px] font-medium text-white mb-1">{booking.customerName}</p>
+                          <p className="text-[9px] font-black uppercase tracking-widest text-white/30">{booking.customerPhone}</p>
                         </td>
-                        <td className="px-10 py-6">
-                          <p className="font-bold text-pf-heading">{booking.viewingDate}</p>
-                          <p className="text-xs text-pf-muted">{booking.viewingTime}</p>
+                        <td className="px-12 py-8">
+                          <p className="text-[13px] font-medium text-white mb-1">{booking.viewingDate}</p>
+                          <p className="text-[9px] font-black uppercase tracking-widest text-white/30">{booking.viewingTime}</p>
                         </td>
-                        <td className="px-10 py-6 text-right">
-                          <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-green-600 border border-green-100">
-                            <CheckCircle size={12} /> {booking.status}
+                        <td className="px-12 py-8 text-right">
+                          <span className="inline-flex items-center gap-2 px-4 py-2 text-[9px] font-black uppercase tracking-[0.2em] bg-pf-accent/10 text-pf-accent border border-pf-accent/20">
+                            {booking.status}
                           </span>
                         </td>
                       </tr>
@@ -110,113 +124,98 @@ export default function UserDashboard() {
             </div>
           </div>
 
-          <div className="space-y-10 pt-10">
-            <div className="flex items-center justify-between">
-              <h3 className="text-3xl font-black text-pf-heading tracking-tight">My Properties</h3>
-              <Link 
-                href="/dashboard/add-listing"
-                className="rounded-full bg-pf-primary px-6 py-2 text-xs font-black text-white uppercase tracking-widest shadow-xl shadow-pf-primary/20 hover:scale-105 transition-all"
-              >
-                + Add New
+          {/* My Properties */}
+          <div className="bg-pf-surface border border-white/5">
+            <div className="flex items-center justify-between border-b border-white/5 p-12">
+              <div className="space-y-4">
+                <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent">Collection</p>
+                <h2 className="font-serif italic text-4xl">My <span className="font-normal not-italic">Properties</span></h2>
+              </div>
+              <Link href="/dashboard/add-listing" className="btn-pill btn-primary text-black">
+                + New Entry
               </Link>
             </div>
 
-            <div className="rounded-[48px] border border-gray-100 bg-white shadow-2xl overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead>
-                    <tr className="border-b border-gray-50 text-[10px] font-black uppercase tracking-[0.2em] text-pf-muted">
-                      <th className="px-10 py-6">Property</th>
-                      <th className="px-10 py-6">Price</th>
-                      <th className="px-10 py-6">Status</th>
-                      <th className="px-10 py-6 text-right">Action</th>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="border-b border-white/5 text-[9px] font-black uppercase tracking-[0.3em] text-white/20">
+                    <th className="px-12 py-8">Residence</th>
+                    <th className="px-12 py-8">Valuation</th>
+                    <th className="px-12 py-8 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {myListings.length === 0 ? (
+                    <tr>
+                      <td colSpan="3" className="px-12 py-32 text-center">
+                        <p className="text-white/10 font-serif italic text-2xl">Your collection is empty</p>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-50">
-                    {myListings.length === 0 ? (
-                      <tr>
-                        <td colSpan="4" className="px-10 py-20 text-center text-pf-muted font-bold uppercase tracking-widest opacity-40">
-                          You haven't added any properties yet
+                  ) : (
+                    myListings.map((listing) => (
+                      <tr key={listing.id} className="group hover:bg-white/5 transition-all duration-500">
+                        <td className="px-12 py-8">
+                          <div className="flex items-center gap-6">
+                            <img src={listing.image} className="h-14 w-14 grayscale group-hover:grayscale-0 transition-all duration-700" alt="" />
+                            <div>
+                              <p className="font-serif text-2xl text-white group-hover:italic transition-all">{listing.title}</p>
+                              <p className="text-[9px] font-black uppercase tracking-widest text-white/30">{listing.location.split(',')[0]}</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-12 py-8">
+                          <span className="font-serif italic text-xl text-white">AED {listing.price}</span>
+                        </td>
+                        <td className="px-12 py-8 text-right">
+                          <div className="flex items-center justify-end gap-6">
+                            <button 
+                              onClick={() => handleEditClick(listing)}
+                              className="text-white/30 hover:text-white transition-colors"
+                            >
+                              <Pencil size={18} />
+                            </button>
+                            <button 
+                              onClick={() => deleteListing(listing.id)}
+                              className="text-white/30 hover:text-red-500 transition-colors"
+                            >
+                              <Trash2 size={18} />
+                            </button>
+                          </div>
                         </td>
                       </tr>
-                    ) : (
-                      myListings.map((listing) => (
-                        <tr key={listing.id} className="group hover:bg-pf-background transition-colors">
-                          <td className="px-10 py-6">
-                            <div className="flex items-center gap-4">
-                              <img src={listing.image} className="h-12 w-12 rounded-xl object-cover" alt="" />
-                              <div>
-                                <p className="font-bold text-pf-heading">{listing.title}</p>
-                                <p className="text-[10px] text-pf-muted uppercase tracking-widest">{listing.location.split(',')[0]}</p>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-10 py-6">
-                            <span className="font-bold text-pf-heading">AED {listing.price}</span>
-                          </td>
-                          <td className="px-10 py-6">
-                            <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-green-600 border border-green-100">
-                              Active
-                            </span>
-                          </td>
-                          <td className="px-10 py-6 text-right">
-                            <div className="flex items-center justify-end gap-2">
-                              <button 
-                                onClick={() => handleEditClick(listing)}
-                                className="p-2 text-pf-muted hover:text-pf-primary transition-colors"
-                              >
-                                <Pencil size={18} />
-                              </button>
-                              <button 
-                                onClick={() => deleteListing(listing.id)}
-                                className="p-2 text-pf-muted hover:text-red-500 transition-colors"
-                              >
-                                <Trash2 size={18} />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
 
         {/* Recent Activity Sidebar */}
-        {/* ... */}
-
-        {/* Recent Activity Sidebar */}
-        <div className="space-y-10">
-          <h3 className="text-3xl font-black text-pf-heading tracking-tight">Recent Activity</h3>
-          <div className="rounded-[48px] border border-gray-100 bg-white p-10 shadow-2xl">
-            <div className="space-y-10">
-              {[
-                { type: 'lead', user: 'Sarah Ahmed', time: '2 hours ago', text: 'interested in your Dubai Marina property.' },
-                { type: 'view', user: 'John Smith', time: '5 hours ago', text: 'added your Luxury Villa to favorites.' },
-                { type: 'system', user: 'Listing Approved', time: '1 day ago', text: 'Your Modern Apartment is now active.' },
-              ].map((activity, i) => (
-                <div key={i} className="flex gap-6 group">
-                  <div className={`h-14 w-14 shrink-0 rounded-[20px] flex items-center justify-center shadow-lg transition-all group-hover:scale-110 group-hover:-rotate-6 ${
-                    activity.type === 'lead' ? 'bg-pf-primary/10 text-pf-primary shadow-pf-primary/10' : 
-                    activity.type === 'view' ? 'bg-pink-100 text-pink-500 shadow-pink-200/50' : 'bg-green-100 text-green-500 shadow-green-200/50'
-                  }`}>
-                    {activity.type === 'lead' && <MessageSquare size={26} />}
-                    {activity.type === 'view' && <Heart size={26} />}
-                    {activity.type === 'system' && <Clock size={26} />}
-                  </div>
-                  <div>
-                    <p className="text-base leading-relaxed">
-                      <span className="font-black text-pf-heading">{activity.user}</span> {activity.text}
-                    </p>
-                    <p className="mt-2 text-[10px] font-black text-pf-muted uppercase tracking-widest opacity-60">{activity.time}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button className="mt-12 w-full rounded-[24px] bg-pf-background py-6 text-sm font-black text-pf-primary transition-all hover:bg-pf-primary hover:text-white hover:shadow-2xl hover:shadow-pf-primary/30">
+        <div className="space-y-20">
+          <div className="space-y-4">
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent">Timeline</p>
+            <h2 className="font-serif italic text-4xl">Activity <span className="font-normal not-italic">Feed</span></h2>
+          </div>
+          
+          <div className="bg-pf-surface border border-white/5 p-12 space-y-12">
+            {[
+              { type: 'lead', user: 'Sarah Ahmed', time: '2 hours ago', text: 'interested in your Dubai Marina property.' },
+              { type: 'view', user: 'John Smith', time: '5 hours ago', text: 'added your Luxury Villa to favorites.' },
+              { type: 'system', user: 'Listing Approved', time: '1 day ago', text: 'Your Modern Apartment is now active.' },
+            ].map((activity, i) => (
+              <div key={i} className="group relative pl-8 border-l border-white/5">
+                <div className="absolute -left-[5px] top-0 h-2 w-2 rounded-full bg-pf-accent" />
+                <p className="text-[13px] leading-relaxed text-white/60">
+                  <span className="font-black text-white uppercase tracking-widest text-[10px] block mb-2">{activity.user}</span> 
+                  {activity.text}
+                </p>
+                <p className="mt-4 text-[9px] font-black text-white/20 uppercase tracking-widest">{activity.time}</p>
+              </div>
+            ))}
+            
+            <button className="w-full btn-pill btn-outline text-white/30 hover:text-white hover:border-white">
               View All Insights
             </button>
           </div>

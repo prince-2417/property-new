@@ -1,6 +1,6 @@
 // Force deployment - Fixed build errors
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import FilterBar from '@/components/FilterBar';
@@ -11,7 +11,20 @@ import TravelTimeSection from '@/components/TravelTimeSection';
 import Footer from '@/components/Footer';
 import { useListings } from '@/context/ListingContext';
 
+function useScrollReveal() {
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal, .reveal-left');
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.12 }
+    );
+    els.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+}
+
 export default function Home() {
+  useScrollReveal();
   const { listings } = useListings();
   const [activeCategory, setActiveCategory] = useState('All');
   const [filters, setFilters] = useState({
@@ -49,13 +62,13 @@ export default function Home() {
         <Navbar />
         <Hero onSearch={setFilters} />
 
-      <section id="listings-results" className="container mx-auto px-4 py-24">
-        <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between animate-in fade-in slide-in-from-bottom-4 duration-1000">
-          <div>
-            <p className="text-[11px] uppercase tracking-[0.5em] text-pf-primary font-extrabold mb-4">Curated Collection</p>
-            <h2 className="text-4xl md:text-6xl font-extrabold text-pf-heading tracking-tighter leading-tight">Elite Residences</h2>
+      <section id="listings-results" className="reveal container mx-auto px-4 py-24">
+        <div className="mb-20 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div className="space-y-4">
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent">Curated Collection</p>
+            <h2 className="editorial-heading text-pf-heading">Elite <br /><span className="italic font-light text-white">Residences</span></h2>
           </div>
-          <button className="px-10 py-5 rounded-2xl bg-pf-heading text-white text-[11px] font-black uppercase tracking-[0.2em] hover:bg-pf-primary hover:translate-y-[-2px] transition-all shadow-2xl shadow-slate-200">
+          <button className="btn-pill btn-primary">
             Explore All Listings
           </button>
         </div>
@@ -69,13 +82,18 @@ export default function Home() {
         <PropertyGrid listings={filteredProperties} />
       </section>
 
-      <PopularProjectsSection />
-      
-      <SearchByAreaSection />
-
-      <TravelTimeSection />
-
-      <Footer />
+      <div className="reveal">
+        <PopularProjectsSection />
+      </div>
+      <div className="reveal">
+        <SearchByAreaSection />
+      </div>
+      <div className="reveal">
+        <TravelTimeSection />
+      </div>
+      <div className="reveal">
+        <Footer />
+      </div>
       </main>
     </div>
   );

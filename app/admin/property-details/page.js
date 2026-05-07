@@ -1,77 +1,82 @@
 'use client';
 import { useListings } from '@/context/ListingContext';
-import { Trash2 } from 'lucide-react';
+import { Trash2, MapPin, ArrowUpRight } from 'lucide-react';
 
 export default function PropertyDetailsAdmin() {
   const { listings, deleteListing } = useListings();
 
   return (
-    <div className="space-y-12 animate-in fade-in duration-700">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl font-black text-slate-900 tracking-tight">Property Management</h1>
-          <p className="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Manage all platform listings</p>
+    <div className="space-y-16 animate-in fade-in duration-1000">
+      <div className="flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-4">
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent">Asset Management</p>
+          <h1 className="font-serif italic text-5xl text-pf-heading">Platform <span className="font-normal not-italic">Inventory</span></h1>
+        </div>
+        
+        <div className="bg-pf-surface border border-white/5 px-10 py-6">
+          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/20 mb-1">Total Assets</p>
+          <p className="font-serif italic text-3xl text-pf-accent">{listings.length} Residences</p>
         </div>
       </div>
 
-      <div className="rounded-[48px] border border-slate-200 bg-white shadow-2xl shadow-slate-200/40 overflow-hidden">
-        <div className="flex items-center justify-between border-b border-slate-100 p-10 bg-slate-50/30">
-          <div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Active Listings</h2>
-            <p className="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Global platform activity</p>
-          </div>
-          <span className="rounded-full bg-pf-primary/10 px-6 py-2 text-sm font-black text-pf-primary border border-pf-primary/20">
-            {listings.length} Properties
-          </span>
-        </div>
-        
+      <div className="bg-pf-surface border border-white/5 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="border-b border-slate-50 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                <th className="px-10 py-6">Property</th>
-                <th className="px-10 py-6">Owner</th>
-                <th className="px-10 py-6">Price</th>
-                <th className="px-10 py-6 text-right">Action</th>
+              <tr className="border-b border-white/5 text-[9px] font-black uppercase tracking-[0.3em] text-white/20">
+                <th className="px-12 py-8">Residence Identity</th>
+                <th className="px-12 py-8">Asset Ownership</th>
+                <th className="px-12 py-8">Valuation</th>
+                <th className="px-12 py-8 text-right">Operations</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50">
+            <tbody className="divide-y divide-white/5">
               {listings.length === 0 ? (
                 <tr>
-                  <td colSpan="4" className="px-10 py-24 text-center">
-                    <p className="text-slate-300 font-black text-lg uppercase tracking-widest">Empty Listings</p>
+                  <td colSpan="4" className="px-12 py-32 text-center">
+                    <p className="text-white/10 font-serif italic text-2xl">No residences in global inventory</p>
                   </td>
                 </tr>
               ) : (
                 listings.map((listing) => (
-                  <tr key={listing.id} className="group hover:bg-slate-50/50 transition-colors">
-                    <td className="px-10 py-7">
-                      <div className="flex items-center gap-5">
-                        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-slate-100 shadow-inner">
-                          <img src={listing.image} alt="" className="h-full w-full object-cover transition group-hover:scale-110" />
+                  <tr key={listing.id} className="group hover:bg-white/5 transition-all duration-500">
+                    <td className="px-12 py-10">
+                      <div className="flex items-center gap-8">
+                        <div className="h-24 w-24 shrink-0 overflow-hidden bg-pf-background border border-white/5">
+                          <img src={listing.image} alt="" className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" />
                         </div>
                         <div>
-                          <p className="font-black text-slate-900 text-lg leading-tight">{listing.title}</p>
-                          <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-wider">{listing.location.split(',')[0]}</p>
+                          <p className="font-serif text-2xl text-pf-heading group-hover:italic transition-all leading-tight mb-2">{listing.title}</p>
+                          <div className="flex items-center gap-2 text-[9px] font-black text-white/20 uppercase tracking-widest">
+                            <MapPin size={12} className="text-pf-accent" /> {listing.location.split(',')[0]}
+                          </div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-10 py-7">
-                      <span className="inline-flex items-center gap-2 rounded-xl bg-slate-100 px-4 py-2 text-sm font-bold text-slate-700">
-                        <div className="h-2 w-2 rounded-full bg-pf-primary"></div>
-                        {listing.ownerName}
-                      </span>
+                    <td className="px-12 py-10">
+                      <div className="flex flex-col gap-1">
+                        <span className="font-serif italic text-lg text-pf-heading/80">{listing.ownerName}</span>
+                        <span className="text-[9px] font-black text-white/20 uppercase tracking-[0.2em]">Asset Custodian</span>
+                      </div>
                     </td>
-                    <td className="px-10 py-7">
-                      <span className="font-black text-slate-900">AED {listing.price}</span>
+                    <td className="px-12 py-10">
+                      <div className="flex flex-col gap-1">
+                        <span className="font-serif italic text-xl text-pf-heading">AED {listing.price}</span>
+                        <span className="text-[9px] font-black text-pf-accent uppercase tracking-widest">Market Valuation</span>
+                      </div>
                     </td>
-                    <td className="px-10 py-7 text-right">
-                      <button 
-                        onClick={() => deleteListing(listing.id)}
-                        className="rounded-2xl p-3 text-slate-300 transition-all hover:bg-red-50 hover:text-red-500 hover:scale-110"
-                      >
-                        <Trash2 size={20} />
-                      </button>
+                    <td className="px-12 py-10 text-right">
+                      <div className="flex items-center justify-end gap-8 opacity-40 group-hover:opacity-100 transition-all">
+                        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-pf-accent">
+                          Manage <ArrowUpRight size={14} />
+                        </div>
+                        <button 
+                          onClick={() => deleteListing(listing.id)}
+                          className="text-white/20 hover:text-red-500 transition-colors"
+                        >
+                          <Trash2 size={20} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

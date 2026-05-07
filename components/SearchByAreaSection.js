@@ -5,32 +5,37 @@ export default function SearchByAreaSection() {
   const { areas } = useListings();
 
   return (
-    <section className="bg-pf-background py-24">
-      <div className="container mx-auto px-4">
-        <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-[11px] uppercase tracking-[0.5em] text-pf-primary font-extrabold mb-4">Location Guide</p>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-pf-heading tracking-tighter">Premier Neighbourhoods</h2>
+    <section className="bg-pf-background py-32 border-t border-white/5">
+      <div className="container mx-auto px-6">
+        <div className="mb-20 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div className="space-y-4">
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent">Discovery</p>
+            <h2 className="editorial-heading text-pf-heading">Premier <br /><span className="italic font-light text-white">Neighbourhoods</span></h2>
           </div>
-          <button className="px-8 py-4 rounded-2xl bg-white border border-slate-200 text-pf-heading text-[11px] font-black uppercase tracking-[0.2em] hover:border-pf-primary hover:text-pf-primary transition-all">
-            View All Areas
+          <button className="btn-pill btn-outline">
+            Explore All Areas
           </button>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
           {areas.map((area) => (
-            <div key={area.name} className="group relative h-[400px] overflow-hidden rounded-[32px] bg-white shadow-xl transition-all duration-500 hover:translate-y-[-8px]">
+            <div key={area.name} className="group relative h-[500px] overflow-hidden bg-pf-surface transition-all duration-700 cursor-pointer border border-white/5 hover:border-pf-accent/30">
               <img 
                 src={area.image} 
                 alt={area.name} 
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2s] group-hover:scale-110 opacity-60 grayscale group-hover:grayscale-0"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-pf-background via-pf-background/20 to-transparent" />
               
-              <div className="absolute bottom-0 left-0 w-full p-8">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-pf-primary mb-2">{area.label}</p>
-                <h3 className="text-2xl font-black text-white mb-2">{area.name}</h3>
-                <p className="text-sm text-white/60 font-medium">{area.count}</p>
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                <div className="w-px h-20 bg-pf-accent mb-6 scale-y-0 group-hover:scale-y-100 transition-transform duration-700 delay-100" />
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-pf-heading">View Portfolio</p>
+              </div>
+
+              <div className="absolute bottom-0 left-0 w-full p-10 group-hover:translate-y-[-20px] transition-transform duration-700">
+                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-pf-accent mb-3">{area.label}</p>
+                <h3 className="font-serif text-3xl text-pf-heading mb-2 leading-tight group-hover:italic transition-all">{area.name}</h3>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">{area.count}</p>
               </div>
             </div>
           ))}
@@ -39,4 +44,3 @@ export default function SearchByAreaSection() {
     </section>
   );
 }
-

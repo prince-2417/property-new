@@ -47,72 +47,65 @@ export default function AdminLayout({ children }) {
   if (loading || !user || user.role !== 'Admin') {
     return (
       <div className="flex h-screen items-center justify-center bg-pf-background">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-pf-primary border-t-transparent"></div>
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-pf-accent border-t-transparent"></div>
       </div>
     );
   }
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full justify-between">
-      <div className="space-y-6">
+      <div className="space-y-10">
         <div className="px-2">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Main Menu</p>
-          <div className="mt-4 space-y-2">
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 mb-8 px-4">Management</p>
+          <div className="space-y-1">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link 
                   key={item.name}
                   href={item.href} 
-                  className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-black transition-all ${
+                  className={`flex items-center gap-4 rounded-none px-6 py-4 text-[11px] font-black uppercase tracking-widest transition-all ${
                     isActive 
-                      ? 'bg-pf-primary text-white shadow-xl shadow-pf-primary/20 scale-105' 
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-pf-primary'
+                      ? 'bg-white text-black' 
+                      : 'text-white/40 hover:text-white hover:bg-white/5'
                   }`}
                 >
-                  <item.icon size={20} /> {item.name}
+                  <item.icon size={18} /> {item.name}
                 </Link>
               );
             })}
           </div>
         </div>
-
-        <div className="px-2 pt-6">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Settings</p>
-          <div className="mt-4 space-y-2">
-            <Link href="/dashboard/settings" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold text-slate-600 transition hover:bg-slate-50 hover:text-pf-primary">
-              <Settings size={20} /> Security Settings
-            </Link>
-          </div>
-        </div>
       </div>
 
-      <button 
-        onClick={logout}
-        className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold text-red-500 transition hover:bg-red-50"
-      >
-        <LogOut size={20} /> Sign Out
-      </button>
+      <div className="px-2 pb-8">
+        <button 
+          onClick={logout}
+          className="flex items-center gap-4 rounded-none px-6 py-4 text-[11px] font-black uppercase tracking-widest text-red-500/70 hover:text-red-500 hover:bg-red-500/5 transition-all"
+        >
+          <LogOut size={18} /> Sign Out
+        </button>
+      </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
+    <div className="min-h-screen bg-pf-background text-white">
       <Navbar />
       
       <div className="flex pt-20">
         {/* Desktop Sidebar */}
-        <aside className="fixed left-0 top-20 hidden h-[calc(100vh-80px)] w-72 border-r border-slate-200 bg-white p-6 lg:block shadow-sm z-30">
+        <aside className="fixed left-0 top-20 hidden h-[calc(100vh-80px)] w-72 border-r border-white/5 bg-pf-surface lg:block z-30">
           <SidebarContent />
         </aside>
 
         {/* Mobile Sidebar Overlay */}
         {isMobileSidebarOpen && (
-          <div className="lg:hidden fixed inset-0 z-[100] bg-slate-900/50 backdrop-blur-sm transition-opacity" onClick={() => setIsMobileSidebarOpen(false)}>
-            <div className="h-full w-72 bg-white p-6 animate-in slide-in-from-left duration-300 shadow-2xl" onClick={e => e.stopPropagation()}>
-              <div className="flex items-center justify-between mb-8">
-                <div className="text-xl font-black text-pf-heading">Admin Menu</div>
-                <button onClick={() => setIsMobileSidebarOpen(false)} className="p-2 rounded-xl bg-slate-50 text-slate-400">
+          <div className="lg:hidden fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm" onClick={() => setIsMobileSidebarOpen(false)}>
+            <div className="h-full w-72 bg-pf-surface p-6 animate-in slide-in-from-left duration-500 shadow-2xl" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-12">
+                <div className="font-serif italic text-2xl">Menu</div>
+                <button onClick={() => setIsMobileSidebarOpen(false)} className="p-2 text-white/40 hover:text-white">
                   <LogOut size={20} className="rotate-180" />
                 </button>
               </div>
@@ -122,24 +115,29 @@ export default function AdminLayout({ children }) {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 lg:ml-72 p-6 md:p-8 lg:p-12 transition-all">
+        <main className="flex-1 lg:ml-72 p-6 md:p-12 transition-all">
           <div className="mx-auto max-w-7xl">
             {/* Header / Top Bar */}
-            <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-center justify-between gap-4">
+            <div className="mb-16 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-center gap-6">
                 <button 
                   onClick={() => setIsMobileSidebarOpen(true)}
-                  className="lg:hidden p-3 rounded-2xl bg-white border border-slate-200 text-pf-heading shadow-sm"
+                  className="lg:hidden p-4 bg-pf-surface border border-white/10 text-white"
                 >
-                  <LayoutDashboard size={22} />
+                  <LayoutDashboard size={20} />
                 </button>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="hidden md:block text-right">
-                  <p className="text-sm font-black text-slate-900">{user.name}</p>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-pf-primary">{user.role}</p>
+                <div className="space-y-1">
+                  <h2 className="font-serif italic text-3xl">Admin Console</h2>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Property Control Center</p>
                 </div>
-                <div className="h-12 w-12 rounded-2xl bg-pf-primary/10 flex items-center justify-center text-pf-primary font-black shadow-inner">
+              </div>
+              
+              <div className="flex items-center gap-6 p-4 bg-pf-surface border border-white/5">
+                <div className="hidden md:block text-right">
+                  <p className="text-xs font-black uppercase tracking-widest">{user.name}</p>
+                  <p className="text-[9px] font-black uppercase tracking-[0.2em] text-pf-accent">{user.role}</p>
+                </div>
+                <div className="h-10 w-10 bg-white text-black flex items-center justify-center font-black">
                   {user.name[0]}
                 </div>
               </div>

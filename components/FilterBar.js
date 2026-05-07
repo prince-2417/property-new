@@ -9,26 +9,29 @@ export default function FilterBar({ activeCategory, onCategoryChange, filters, o
   };
 
   return (
-    <div className="mb-14 space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div className="flex items-center gap-3 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap md:pb-0">
+    <div className="mb-20 space-y-12">
+      <div className="flex items-center gap-10 overflow-x-auto pb-4 scrollbar-hide">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => onCategoryChange?.(cat)}
-            className={`flex-shrink-0 rounded-2xl px-8 py-4 text-[12px] font-black transition-all duration-300 uppercase tracking-[0.2em] ${
+            className={`flex-shrink-0 text-[10px] font-black uppercase tracking-[0.4em] transition-all duration-500 relative pb-4 ${
               activeCategory === cat 
-                ? 'bg-pf-primary text-white shadow-[0_12px_24px_-8px_rgba(37,99,235,0.5)] scale-[1.02]' 
-                : 'border border-slate-100 bg-white text-slate-400 hover:border-pf-primary/30 hover:text-pf-primary hover:bg-slate-50'
+                ? 'text-white' 
+                : 'text-white/30 hover:text-white/60'
             }`}
           >
             {cat}
+            {activeCategory === cat && (
+              <div className="absolute bottom-0 left-0 w-full h-px bg-pf-accent animate-in slide-in-from-left duration-500" />
+            )}
           </button>
         ))}
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-4 p-3 bg-white/50 backdrop-blur-md rounded-[32px] border border-slate-100 shadow-[0_20px_50px_-20px_rgba(15,23,42,0.05)]">
+      <div className="grid gap-px bg-white/5 lg:grid-cols-4 border border-white/5 shadow-2xl">
         {/* Area Filter */}
-        <div className="relative group rounded-2xl border border-slate-100 bg-white hover:border-pf-primary/30 transition-all overflow-hidden p-1">
+        <div className="relative group bg-pf-surface hover:bg-[#1a1a1a] transition-all overflow-hidden">
           <select 
             value={filters?.location || ''}
             onChange={(e) => handleSubFilterChange('location', e.target.value)}
@@ -38,22 +41,20 @@ export default function FilterBar({ activeCategory, onCategoryChange, filters, o
             <option value="Dubai Marina">Dubai Marina</option>
             <option value="Downtown Dubai">Downtown Dubai</option>
             <option value="Palm Jumeirah">Palm Jumeirah</option>
-            <option value="Business Bay">Business Bay</option>
-            <option value="JVC">JVC</option>
           </select>
-          <div className="flex items-center justify-between px-6 py-4 relative z-10">
+          <div className="flex items-center justify-between px-8 py-6 relative z-10">
             <div className="flex flex-col gap-1">
-              <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">Neighborhood</span>
-              <span className={`text-[14px] font-bold ${filters?.location ? 'text-pf-primary' : 'text-pf-heading'}`}>
+              <span className="text-[9px] font-black uppercase tracking-widest text-white/30">Location</span>
+              <span className="text-[13px] font-medium text-white">
                 {filters?.location || 'Select Area'}
               </span>
             </div>
-            <ChevronDown size={18} className="text-slate-300 group-hover:text-pf-primary transition-colors" />
+            <ChevronDown size={14} className="text-white/20 group-hover:text-white transition-colors" />
           </div>
         </div>
 
         {/* Price Filter */}
-        <div className="relative group rounded-2xl border border-slate-100 bg-white hover:border-pf-primary/30 transition-all overflow-hidden p-1">
+        <div className="relative group bg-pf-surface hover:bg-[#1a1a1a] transition-all overflow-hidden">
           <select 
             value={filters?.priceRange || ''}
             onChange={(e) => handleSubFilterChange('priceRange', e.target.value)}
@@ -65,19 +66,19 @@ export default function FilterBar({ activeCategory, onCategoryChange, filters, o
             <option value="3000000-5000000">3M - 5M AED</option>
             <option value="5000000+">5M+ AED</option>
           </select>
-          <div className="flex items-center justify-between px-6 py-4 relative z-10">
+          <div className="flex items-center justify-between px-8 py-6 relative z-10">
             <div className="flex flex-col gap-1">
-              <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">Budget Range</span>
-              <span className={`text-[14px] font-bold ${filters?.priceRange ? 'text-pf-primary' : 'text-pf-heading'}`}>
+              <span className="text-[9px] font-black uppercase tracking-widest text-white/30">Price Range</span>
+              <span className="text-[13px] font-medium text-white">
                 {filters?.priceRange ? filters.priceRange.replace('-', ' - ') : 'Any Price'}
               </span>
             </div>
-            <ChevronDown size={18} className="text-slate-300 group-hover:text-pf-primary transition-colors" />
+            <ChevronDown size={14} className="text-white/20 group-hover:text-white transition-colors" />
           </div>
         </div>
 
         {/* Bedrooms Filter */}
-        <div className="relative group rounded-2xl border border-slate-100 bg-white hover:border-pf-primary/30 transition-all overflow-hidden p-1">
+        <div className="relative group bg-pf-surface hover:bg-[#1a1a1a] transition-all overflow-hidden">
           <select 
             value={filters?.beds || ''}
             onChange={(e) => handleSubFilterChange('beds', e.target.value)}
@@ -89,23 +90,21 @@ export default function FilterBar({ activeCategory, onCategoryChange, filters, o
             <option value="3">3 Bedrooms</option>
             <option value="4">4+ Bedrooms</option>
           </select>
-          <div className="flex items-center justify-between px-6 py-4 relative z-10">
+          <div className="flex items-center justify-between px-8 py-6 relative z-10">
             <div className="flex flex-col gap-1">
-              <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">Space Needed</span>
-              <span className={`text-[14px] font-bold ${filters?.beds ? 'text-pf-primary' : 'text-pf-heading'}`}>
+              <span className="text-[9px] font-black uppercase tracking-widest text-white/30">Bedrooms</span>
+              <span className="text-[13px] font-medium text-white">
                 {filters?.beds ? `${filters.beds} Bedrooms` : 'Any Size'}
               </span>
             </div>
-            <ChevronDown size={18} className="text-slate-300 group-hover:text-pf-primary transition-colors" />
+            <ChevronDown size={14} className="text-white/20 group-hover:text-white transition-colors" />
           </div>
         </div>
 
-        <button className="flex items-center justify-between rounded-2xl bg-pf-heading px-8 py-5 text-[12px] font-black uppercase tracking-[0.2em] text-white hover:bg-pf-primary hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-slate-200 group">
-          <span>Apply Filter</span>
-          <SlidersHorizontal size={18} className="group-hover:rotate-180 transition-transform duration-500" />
+        <button className="flex items-center justify-center gap-4 bg-white text-black font-black text-[10px] uppercase tracking-[0.3em] hover:bg-pf-accent hover:text-white transition-all">
+          Apply Filter
         </button>
       </div>
     </div>
-
   );
 }

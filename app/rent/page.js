@@ -5,6 +5,8 @@ import Footer from '@/components/Footer';
 import FilterBar from '@/components/FilterBar';
 import PropertyGrid from '@/components/PropertyGrid';
 import { useListings } from '@/context/ListingContext';
+import { Calculator, Map as MapIcon, ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function RentPage() {
   const { listings } = useListings();
@@ -17,13 +19,8 @@ export default function RentPage() {
   });
 
   const filteredProperties = listings.filter(property => {
-    // Only show "For Rent" properties
     if (property.transaction !== 'For Rent') return false;
-
-    // Category filter
     if (activeCategory !== 'All' && property.type !== activeCategory) return false;
-
-    // Sub filters
     if (filters.location && !property.location.toLowerCase().includes(filters.location.toLowerCase())) return false;
     if (filters.beds) {
       const propertyBeds = property.bedrooms || property.beds || 0;
@@ -32,34 +29,50 @@ export default function RentPage() {
     }
     if (filters.priceRange) {
       const price = parseInt(property.price.replace(/,/g, ''));
-      // Adjust price logic for rent (prices are usually lower, but let's use the same ranges for consistency or simplify)
       if (filters.priceRange === '0-1000000' && price > 1000000) return false;
       if (filters.priceRange === '1000000-3000000' && (price < 1000000 || price > 3000000)) return false;
       if (filters.priceRange === '3000000-5000000' && (price < 3000000 || price > 5000000)) return false;
       if (filters.priceRange === '5000000+' && price < 5000000) return false;
     }
-
     return true;
   });
 
   return (
-    <div className="min-h-screen bg-pf-background text-pf-text">
+    <div className="min-h-screen bg-pf-background text-white">
       <Navbar />
       
-      <main className="pt-24 pb-20">
-        <section className="bg-white border-b border-gray-100 py-12 mb-8">
-          <div className="container mx-auto px-4">
-            <nav className="flex mb-4 text-[10px] font-black text-pf-muted uppercase tracking-[0.2em]">
-              <span className="hover:text-pf-primary transition cursor-pointer">UAE</span>
-              <span className="mx-2 text-slate-300">/</span>
-              <span className="text-pf-primary">Properties for rent</span>
+      <main className="pt-24 pb-32">
+        <section className="relative min-h-[60vh] flex items-center py-24 mb-16 overflow-hidden">
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2070" 
+              alt="Elite Rentals" 
+              className="h-full w-full object-cover opacity-60 scale-105 transition-transform duration-[10s] hover:scale-100 grayscale"
+            />
+            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-pf-background/20 via-transparent to-pf-background" />
+          </div>
+          
+          <div className="container mx-auto px-6 relative z-10">
+            <nav className="flex mb-12 text-[10px] font-black text-white/40 uppercase tracking-[0.5em] animate-in fade-in slide-in-from-left-4 duration-1000">
+              <Link href="/" className="hover:text-pf-accent transition">UAE</Link>
+              <span className="mx-4 text-white/10">/</span>
+              <span className="text-pf-accent">Properties for rent</span>
             </nav>
-            <h1 className="text-4xl md:text-5xl font-black text-pf-heading mb-4 tracking-tight">Properties for rent in UAE</h1>
-            <p className="text-pf-muted max-w-2xl font-medium leading-relaxed">Find your perfect rental home from thousands of verified listings including apartments, villas, and short-term rentals.</p>
+            <div className="max-w-4xl space-y-8">
+              <h1 className="font-serif italic text-6xl md:text-8xl text-pf-heading leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                Properties for <br />
+                <span className="font-normal not-italic text-white">Rent in UAE</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-white/40 max-w-2xl font-light leading-relaxed animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-200">
+                Find your perfect rental home from thousands of verified listings including apartments, villas, and short-term rentals.
+              </p>
+            </div>
           </div>
         </section>
 
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6">
           <FilterBar 
             activeCategory={activeCategory} 
             onCategoryChange={setActiveCategory} 
@@ -67,36 +80,45 @@ export default function RentPage() {
             onFilterChange={setFilters}
           />
           
-          <div className="flex flex-col lg:flex-row gap-12">
+          <div className="flex flex-col xl:flex-row gap-20">
             <div className="flex-1">
-              <div className="flex items-center justify-between mb-8">
-                <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">
-                  Showing <span className="text-pf-heading font-black">{filteredProperties.length}</span> rental options
+              <div className="flex items-center justify-between mb-12 border-b border-white/5 pb-8">
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">
+                  Rental Collection <span className="text-pf-accent mx-2">•</span> <span className="text-white">{filteredProperties.length} Options</span>
                 </p>
-                <div className="flex items-center gap-3 text-sm font-black text-pf-heading">
-                  <span className="text-slate-400 uppercase tracking-widest text-[10px]">Sort by:</span>
-                  <select className="bg-transparent border-none focus:ring-0 cursor-pointer text-pf-primary font-black">
-                    <option>Recommended</option>
-                    <option>Price (Low to High)</option>
-                    <option>Price (High to Low)</option>
+                <div className="flex items-center gap-6">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Sort By</span>
+                  <select className="bg-transparent border-none focus:ring-0 cursor-pointer text-pf-accent font-black text-[10px] uppercase tracking-widest outline-none">
+                    <option className="bg-pf-surface">Recommended</option>
+                    <option className="bg-pf-surface">Value: Low to High</option>
+                    <option className="bg-pf-surface">Value: High to Low</option>
                   </select>
                 </div>
               </div>
               <PropertyGrid listings={filteredProperties} />
             </div>
 
-            <aside className="w-full lg:w-96 space-y-8">
-              <div className="rounded-[40px] p-8 border border-slate-100 bg-white shadow-2xl shadow-slate-200/50">
-                <h3 className="text-xl font-black text-pf-heading mb-3">Rent vs Buy</h3>
-                <p className="text-sm text-pf-muted mb-8 font-medium leading-relaxed">Should you keep renting or is it time to buy your own home? Get a detailed comparison.</p>
-                <button className="w-full py-4 rounded-2xl bg-pf-primary text-white text-sm font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg shadow-pf-primary/20">Use Calculator</button>
+            <aside className="w-full xl:w-[450px] space-y-12">
+              {/* Rent vs Buy Card */}
+              <div className="bg-pf-surface border border-white/5 p-12 relative overflow-hidden group transition-all duration-700 hover:border-pf-accent/30">
+                <div className="flex items-center justify-between mb-10">
+                  <div className="h-14 w-14 bg-pf-accent/10 flex items-center justify-center text-pf-accent border border-pf-accent/20">
+                    <Calculator size={24} />
+                  </div>
+                  <ArrowUpRight size={20} className="text-white/10 group-hover:text-pf-accent transition-colors" />
+                </div>
+                <h3 className="font-serif italic text-3xl text-pf-heading mb-4">Rent vs Buy</h3>
+                <p className="text-[13px] text-white/40 mb-10 font-medium leading-relaxed">
+                  Should you keep renting or is it time to buy your own home? Get a detailed financial comparison.
+                </p>
+                <Link 
+                  href="/tools"
+                  className="w-full py-5 flex items-center justify-center gap-3 border border-white/10 text-white text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-500"
+                >
+                  Analyze Finances <ArrowUpRight size={16} />
+                </Link>
               </div>
 
-              <div className="rounded-[40px] p-8 border border-slate-100 bg-slate-900 text-white shadow-2xl shadow-slate-900/20">
-                <h3 className="text-xl font-black mb-3">Rental Price Map</h3>
-                <p className="text-sm text-white/70 mb-8 font-medium leading-relaxed">See how much others are paying for rent in different neighborhoods across the UAE.</p>
-                <button className="w-full py-4 rounded-2xl bg-white text-slate-900 text-sm font-black uppercase tracking-widest hover:scale-105 transition-all">View Price Map</button>
-              </div>
             </aside>
           </div>
         </div>

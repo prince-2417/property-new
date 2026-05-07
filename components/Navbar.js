@@ -1,277 +1,116 @@
 'use client';
-import { User, Menu, Heart, ChevronDown, Building2, Map, Calculator, BookOpen, TrendingUp } from 'lucide-react';
+import { User, Menu, Heart, ChevronDown, Building2, Map, Calculator, BookOpen, TrendingUp, X } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
-
-const buyMenu = {
-  sections: [
-    {
-      title: "Residential Properties for Sale",
-      links: [
-        { name: "Apartments", href: "/buy" },
-        { name: "Villas", href: "/buy" },
-        { name: "Townhouses", href: "/buy" },
-        { name: "Land", href: "/buy" },
-      ]
-    },
-    {
-      title: "Buyer Tools",
-      links: [
-        { name: "Mortgage Calculator", href: "/tools", icon: Calculator },
-        { name: "Sold House Prices", href: "/tools", icon: TrendingUp },
-        { name: "Sale Price Map", href: "/tools", icon: Map },
-        { name: "Buying Insights", href: "/blog", icon: BookOpen },
-      ]
-    },
-    {
-      title: "Guides",
-      links: [
-        { name: "Buyer's Guide", href: "/blog" },
-        { name: "Area Insights", href: "/blog" },
-        { name: "Community Guides", href: "/blog" },
-        { name: "Schools & University Guides", href: "/blog" },
-      ]
-    }
-  ]
-};
-
-const rentMenu = {
-  sections: [
-    {
-      title: "Residential Properties for Rent",
-      links: [
-        { name: "Apartments", href: "/rent" },
-        { name: "Villas", href: "/rent" },
-        { name: "Townhouses", href: "/rent" },
-        { name: "Short-term Rentals", href: "/rent" },
-      ]
-    },
-    {
-      title: "Commercial Properties",
-      links: [
-        { name: "Offices for Sale", href: "/buy" },
-        { name: "Retail for Sale", href: "/buy" },
-        { name: "Commercial Buildings", href: "/buy" },
-      ]
-    },
-    {
-      title: "Insights",
-      links: [
-        { name: "Rent vs Buy Calculator", href: "/tools" },
-        { name: "Rental Price Index", href: "/tools" },
-        { name: "Community Guides", href: "/blog" },
-      ]
-    }
-  ]
-};
-
-const toolsMenu = {
-  sections: [
-    {
-      title: "Popular Tools",
-      links: [
-        { name: "Mortgage Calculator", href: "/tools", icon: Calculator },
-        { name: "Sold House Prices", href: "/tools", icon: TrendingUp },
-        { name: "Sale Price Map", href: "/tools", icon: Map },
-      ]
-    },
-    {
-      title: "Insights & Guides",
-      links: [
-        { name: "Area Insights", href: "/blog", icon: Map },
-        { name: "Community Guides", href: "/blog", icon: Building2 },
-        { name: "Buying Guide", href: "/blog", icon: BookOpen },
-      ]
-    }
-  ]
-};
 
 export default function Navbar() {
   const { user, logout } = useAuth();
-  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+      if (window.scrollY > 50) setIsMobileMenuOpen(false);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const navLinks = [
-    { name: 'Buy', href: '/buy', dropdown: buyMenu },
-    { name: 'Rent', href: '/rent', dropdown: rentMenu },
+    { name: 'Buy', href: '/buy' },
+    { name: 'Rent', href: '/rent' },
     { name: 'New Projects', href: '/new-projects' },
     { name: 'Agents', href: '/agents' },
-    { name: 'Tools & Insights', href: '/tools', dropdown: toolsMenu },
+    { name: 'Tools & Insights', href: '/tools' },
     { name: 'Blog', href: '/blog' },
   ];
 
   return (
     <nav 
-      className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur border-b border-gray-200 shadow-sm"
-      onMouseLeave={() => setActiveDropdown(null)}
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        isScrolled 
+          ? 'bg-pf-background/90 backdrop-blur-xl border-b border-white/5 py-4' 
+          : 'bg-gradient-to-b from-black/50 to-transparent py-4'
+      }`}
     >
-      <div className="container mx-auto px-3 md:px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-4 md:gap-8">
-          <Link href="/" className="text-xl md:text-2xl font-black tracking-tighter text-pf-primary flex items-center gap-0.5 hover:opacity-90 transition-opacity">
-            <span className="text-pf-primary">Luxe</span>
-            <span className="text-pf-heading">Estate</span>
-          </Link>
+      <div className="container mx-auto px-6 flex items-center justify-between">
+        <Link href="/" className="text-2xl font-normal tracking-tighter text-pf-heading flex items-center gap-2 group">
+          <span className="font-serif italic text-3xl group-hover:text-white transition-colors">Property</span>
+        </Link>
 
-          <div className="hidden lg:flex items-center gap-8 text-[13px] font-bold text-pf-heading relative h-14">
-            {navLinks.map((link) => (
-              <div 
-                key={link.name} 
-                className="h-full flex items-center"
-                onMouseEnter={() => link.dropdown ? setActiveDropdown(link.name) : setActiveDropdown(null)}
-              >
-                <Link 
-                  href={link.href} 
-                  className={`flex items-center gap-1 hover:text-pf-primary transition-all duration-300 ${activeDropdown === link.name ? 'text-pf-primary' : ''}`}
-                >
-                  {link.name}
-                  {link.dropdown && <ChevronDown size={14} className={`transition-transform duration-300 ${activeDropdown === link.name ? 'rotate-180' : ''}`} />}
-                </Link>
-              </div>
-            ))}
-
-            {/* Mega Menu Dropdown Container */}
-            {activeDropdown && navLinks.find(l => l.name === activeDropdown)?.dropdown && (
-              <div 
-                className="absolute top-full left-0 w-[700px] bg-white border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-3xl p-10 animate-in fade-in zoom-in-95 duration-300 z-[60]"
-                onMouseEnter={() => setActiveDropdown(activeDropdown)}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <div className="grid grid-cols-3 gap-10">
-                  {navLinks.find(l => l.name === activeDropdown).dropdown.sections.map((section, idx) => (
-                    <div key={idx} className="space-y-5">
-                      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-pf-primary/80">{section.title}</h4>
-                      <ul className="space-y-3.5">
-                        {section.links.map((sublink, sidx) => (
-                          <li key={sidx}>
-                            <Link href={sublink.href} className="flex items-center gap-2.5 text-[14px] text-pf-heading hover:text-pf-primary transition-colors font-medium group">
-                              {sublink.icon && (
-                                <sublink.icon size={16} className="text-pf-muted group-hover:text-pf-primary transition-colors" />
-                              )}
-                              {sublink.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+        <div className="hidden lg:flex items-center gap-12">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.name} 
+              href={link.href} 
+              className="text-[10px] font-black uppercase tracking-[0.3em] text-pf-heading hover:text-white transition-all"
+            >
+              {link.name}
+            </Link>
+          ))}
         </div>
 
-        <div className="flex items-center gap-4">
-          <Link href="/dashboard/add-listing" className="hidden xl:flex items-center gap-2 rounded-xl border border-pf-primary/20 bg-pf-primary/5 px-6 py-2.5 text-sm font-bold text-pf-primary transition hover:bg-pf-primary hover:text-white">
-            List Property
-          </Link>
-          <Link href="/saved" className="hidden lg:flex items-center gap-2 rounded-xl border border-gray-100 px-5 py-2.5 text-sm font-semibold text-pf-heading transition hover:border-pf-primary hover:text-pf-primary">
-            <Heart size={16} />
-          </Link>
-          
-          {user ? (
-            <div className="flex items-center gap-4">
-              <Link 
-                href={user.role === 'Admin' ? '/admin/dashboard' : '/dashboard'} 
-                className="hidden sm:flex items-center gap-2.5 rounded-xl border border-gray-100 px-5 py-2.5 text-sm font-semibold text-pf-heading transition hover:border-pf-primary hover:text-pf-primary"
-              >
-                <span className="hidden md:inline">Hi, {user.name.split(' ')[0]}</span>
-                <User size={16} className="text-pf-primary" />
+        <div className="flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
+            {user ? (
+              <>
+                <Link href="/dashboard" className="text-[10px] font-black uppercase tracking-[0.3em] text-pf-heading hover:text-white transition-colors">
+                  My Account
+                </Link>
+                <Link href="/dashboard/add-listing" className="btn-pill btn-primary px-8 py-3 text-black hover:bg-white hover:text-black transition-all text-[9px]">
+                  List Residence
+                </Link>
+              </>
+            ) : (
+              <Link href="/login" className="text-[10px] font-black uppercase tracking-[0.3em] text-pf-heading hover:text-white transition-colors">
+                Login
               </Link>
-              <button 
-                onClick={logout}
-                className="hidden sm:flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-slate-200 hover:bg-pf-primary transition-all"
-              >
-                Logout
-              </button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-4">
-              <Link href="/signup" className="hidden sm:block text-sm font-bold text-pf-heading hover:text-pf-primary transition-colors">
-                Sign Up
-              </Link>
-              <Link href="/login" className="flex items-center gap-2 rounded-xl bg-pf-primary px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-pf-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                <User size={16} /> Login
-              </Link>
-            </div>
-          )}
+            )}
+          </div>
 
-          
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 rounded-xl border border-gray-100 text-pf-heading hover:bg-gray-50 transition"
+            className="p-2 text-white hover:text-pf-accent transition-colors"
           >
-            <Menu size={24} />
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[65px] bg-white z-[100] animate-in slide-in-from-right duration-300 overflow-y-auto">
-          <div className="p-6 space-y-8">
-            <nav className="space-y-4">
-              {navLinks.map((link) => (
-                <div key={link.name} className="space-y-3">
-                  <Link 
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-between text-lg font-black text-pf-heading py-2"
-                  >
-                    {link.name}
-                  </Link>
-                  {link.dropdown && (
-                    <div className="pl-4 border-l-2 border-gray-100 space-y-4 pb-4">
-                      {link.dropdown.sections.map((section, idx) => (
-                        <div key={idx} className="space-y-2">
-                          <p className="text-[10px] font-black uppercase tracking-widest text-pf-primary">{section.title}</p>
-                          <div className="grid grid-cols-1 gap-2">
-                            {section.links.map((sublink, sidx) => (
-                              <Link 
-                                key={sidx} 
-                                href={sublink.href}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="text-sm font-bold text-pf-muted hover:text-pf-primary transition py-1"
-                              >
-                                {sublink.name}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </nav>
-
-            <div className="pt-8 border-t border-gray-100 space-y-4">
+        <div className="fixed inset-0 z-40 bg-pf-background flex flex-col items-center justify-center space-y-12 animate-in fade-in duration-500">
+          <button 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors"
+          >
+            <X size={32} />
+          </button>
+          
+          {navLinks.map((link) => (
+            <Link 
+              key={link.name} 
+              href={link.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="font-serif text-5xl text-white hover:italic hover:text-pf-accent transition-all"
+            >
+              {link.name}
+            </Link>
+          ))}
+          
+          {user && (
+            <div className="pt-12 flex flex-col items-center gap-6">
               <Link 
                 href="/dashboard/add-listing"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-center w-full rounded-2xl bg-pf-primary py-4 text-sm font-black text-white shadow-xl shadow-pf-primary/20"
+                className="btn-pill btn-primary text-[11px]"
               >
                 List Your Property
               </Link>
-              {!user && (
-                <Link 
-                  href="/signup"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-center w-full rounded-2xl border-2 border-pf-primary py-4 text-sm font-black text-pf-primary"
-                >
-                  Create Account
-                </Link>
-              )}
-              {user && (
-                <button 
-                  onClick={() => { logout(); setIsMobileMenuOpen(false); }}
-                  className="w-full text-sm font-black text-red-500 py-4"
-                >
-                  Sign Out
-                </button>
-              )}
             </div>
-          </div>
+          )}
         </div>
       )}
     </nav>

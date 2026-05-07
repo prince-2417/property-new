@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Sparkles, MapPin, Building, ChevronRight } from 'lucide-react';
+import { Sparkles, MapPin, Building, ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 const projects = [
   { id: 1, name: 'Creek Bay', developer: 'Emaar Properties', location: 'Dubai Creek Harbour', city: 'Dubai', price: '1,797,888 AED', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1000', tag: 'New Launch' },
@@ -20,31 +21,46 @@ export default function NewProjectsPage() {
   const filteredProjects = projects.filter(p => 
     activeCity === 'All Projects' || p.city === activeCity
   );
+
   return (
-    <div className="min-h-screen bg-pf-background text-pf-text">
+    <div className="min-h-screen bg-pf-background text-white">
       <Navbar />
       
-      <main className="pt-24 pb-20">
-        <section className="bg-white border-b border-gray-100 py-16 mb-12">
-          <div className="container mx-auto px-4 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full bg-pf-primary/10 px-4 py-1.5 text-sm font-bold text-pf-primary mb-6">
-              <Sparkles size={16} /> Explore New Horizons
+      <main className="pt-24 pb-32">
+        <section className="relative min-h-[50vh] flex items-center py-24 mb-16 overflow-hidden">
+          {/* Background Image with Overlay */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070" 
+              alt="Luxury Developments" 
+              className="h-full w-full object-cover opacity-30 grayscale"
+            />
+            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-pf-background via-pf-background/70 to-pf-background" />
+          </div>
+          
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="max-w-4xl space-y-8 text-center mx-auto">
+              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent animate-in fade-in slide-in-from-bottom-4 duration-1000">Future Legacies</p>
+              <h1 className="font-serif italic text-6xl md:text-8xl text-pf-heading leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                New Projects <br />
+                <span className="font-normal not-italic text-white">& Off-plan</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-white/40 max-w-2xl mx-auto font-light leading-relaxed animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-200">
+                Discover the latest residential developments and off-plan properties across the UAE. Invest in the future of modern living.
+              </p>
             </div>
-            <h1 className="text-4xl md:text-5xl font-black text-pf-heading mb-6 italic">New Projects & Off-plan</h1>
-            <p className="text-pf-muted max-w-3xl mx-auto text-lg">
-              Discover the latest residential developments and off-plan properties across the UAE. Invest in the future of modern living.
-            </p>
           </div>
         </section>
 
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap gap-4 mb-10 justify-center">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-wrap gap-4 mb-20 justify-center">
             {['All Projects', 'Dubai', 'Abu Dhabi', 'Sharjah', 'Ras Al Khaimah'].map((city) => (
               <button 
                 key={city} 
                 onClick={() => setActiveCity(city)}
-                className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
-                  activeCity === city ? 'bg-pf-primary text-white shadow-lg shadow-pf-primary/20 scale-105' : 'bg-white border border-gray-200 text-pf-muted hover:border-pf-primary hover:text-pf-primary'
+                className={`px-10 py-4 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 ${
+                  activeCity === city ? 'bg-pf-accent text-black shadow-2xl shadow-pf-accent/20' : 'bg-pf-surface border border-white/5 text-white/40 hover:text-white hover:border-white/20'
                 }`}
               >
                 {city}
@@ -52,41 +68,73 @@ export default function NewProjectsPage() {
             ))}
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {filteredProjects.length > 0 ? (
-              filteredProjects.map((project) => (
-                <div key={project.id} className="pf-card group overflow-hidden bg-white border border-gray-100 transition-all hover:scale-[1.02]">
-                  <div className="relative h-64 overflow-hidden">
-                    <img src={project.image} alt={project.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
-                    <div className="absolute top-4 left-4 rounded-lg bg-white/90 backdrop-blur-md px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-pf-primary shadow-sm">
-                      {project.tag}
+          <div className="grid gap-8 lg:grid-cols-[1fr_420px]">
+            {/* Projects Grid */}
+            <div className="grid gap-px bg-white/5 border border-white/5 grid-cols-1 xl:grid-cols-2 self-start">
+              {filteredProjects.length > 0 ? (
+                filteredProjects.map((project) => (
+                  <div key={project.id} className="group relative h-[600px] overflow-hidden bg-pf-surface transition-all duration-700 cursor-pointer">
+                    <img 
+                      src={project.image} 
+                      alt={project.name} 
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2s] group-hover:scale-110 opacity-60 grayscale group-hover:grayscale-0"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-pf-background via-pf-background/20 to-transparent" />
+                    
+                    <div className="absolute top-10 left-10">
+                      <span className="bg-white/10 backdrop-blur-md border border-white/10 px-6 py-3 text-[9px] font-black uppercase tracking-[0.3em] text-white">
+                        {project.tag}
+                      </span>
                     </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center gap-2 text-xs font-bold text-pf-muted mb-2">
-                      <Building size={14} /> {project.developer}
-                    </div>
-                    <h3 className="text-xl font-bold text-pf-heading mb-2 group-hover:text-pf-primary transition">{project.name}</h3>
-                    <div className="flex items-center gap-1 text-sm text-pf-muted mb-6">
-                      <MapPin size={14} /> {project.location}
-                    </div>
-                    <div className="flex items-center justify-between border-t border-gray-50 pt-4">
-                      <div>
-                        <p className="text-[10px] font-bold text-pf-muted uppercase tracking-tighter">Launch Price</p>
-                        <p className="text-lg font-black text-pf-primary">{project.price}</p>
+
+                    <div className="absolute bottom-0 left-0 w-full p-12 space-y-8">
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3 text-[9px] font-black uppercase tracking-[0.3em] text-pf-accent">
+                          <Building size={12} /> {project.developer}
+                        </div>
+                        <h3 className="font-serif text-4xl text-pf-heading leading-tight group-hover:italic transition-all duration-700">
+                          {project.name}
+                        </h3>
+                        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/30">
+                          <MapPin size={12} className="text-white/10" /> {project.location}
+                        </div>
                       </div>
-                      <button className="h-10 w-10 rounded-full bg-pf-background text-pf-primary flex items-center justify-center hover:bg-pf-primary hover:text-white transition">
-                        <ChevronRight size={20} />
-                      </button>
+                      
+                      <div className="flex items-center justify-between pt-8 border-t border-white/5">
+                        <div className="space-y-1">
+                          <p className="text-[9px] font-black text-white/10 uppercase tracking-widest">Entry Valuation</p>
+                          <p className="text-2xl font-serif italic text-white tracking-tight">{project.price}</p>
+                        </div>
+                        <button className="h-16 w-16 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all group-hover:bg-pf-accent group-hover:text-black group-hover:border-pf-accent duration-700">
+                          <ArrowUpRight size={24} />
+                        </button>
+                      </div>
                     </div>
                   </div>
+                ))
+              ) : (
+                <div className="col-span-full py-40 text-center bg-pf-surface">
+                  <p className="text-white/20 font-serif italic text-2xl">No upcoming legacies in this region yet.</p>
                 </div>
-              ))
-            ) : (
-              <div className="col-span-full py-20 text-center">
-                <p className="text-pf-muted font-bold">No projects found in this city yet.</p>
+              )}
+            </div>
+
+            {/* Sticky Map */}
+            <div className="sticky top-28 self-start border border-white/5 overflow-hidden" style={{height: '600px'}}>
+              <div className="px-6 py-4 bg-pf-surface border-b border-white/5 flex items-center gap-3">
+                <MapPin size={14} className="text-pf-accent" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-white/40">UAE Project Locations</span>
               </div>
-            )}
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m2!1m1!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2m2!1d55.2708!2d25.2048!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae&z=7&center=24.4539,54.3773"
+                width="100%"
+                height="100%"
+                style={{border: 0, filter: 'grayscale(1) invert(0.9) contrast(0.8)'}}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
           </div>
         </div>
       </main>

@@ -24,7 +24,9 @@ import {
   ShieldCheck,
   ParkingCircle,
   Wind,
-  PlayCircle
+  PlayCircle,
+  Calculator,
+  Map
 } from 'lucide-react';
 import Link from 'next/link';
 import { useListings } from '@/context/ListingContext';
@@ -243,17 +245,58 @@ export default function PropertyDetails() {
                   </div>
                 </div>
 
+                {/* Interactive Mortgage Card */}
                 <div className="pf-card bg-pf-heading p-8 text-white overflow-hidden relative shadow-2xl group">
                   <div className="relative z-10">
-                    <h4 className="text-xl font-black mb-2 tracking-tight">Mortgage Calculator</h4>
-                    <p className="text-sm text-white/60 mb-8 font-medium">Find out your monthly payments for this property.</p>
-                    <div className="text-4xl font-black mb-6 tracking-tight">AED 12,450 <span className="text-lg font-medium text-white/40 tracking-normal">/mo</span></div>
-                    <Link href="/tools" className="inline-flex items-center gap-2 text-pf-primary font-black text-sm uppercase tracking-widest group-hover:translate-x-2 transition-transform">
-                      Calculate Now <ChevronLeft size={18} className="rotate-180" />
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="p-2 rounded-lg bg-pf-primary/20 text-pf-primary">
+                        <Calculator size={20} />
+                      </div>
+                      <h4 className="text-xl font-black tracking-tight">Mortgage Estimate</h4>
+                    </div>
+                    <p className="text-sm text-white/50 mb-8 font-medium leading-relaxed">
+                      Get an instant estimate for your monthly repayments with our integrated calculator.
+                    </p>
+                    <div className="flex items-end gap-2 mb-8">
+                      <span className="text-4xl font-black text-pf-primary tracking-tight">AED {Math.round(property.price.replace(/,/g, '') * 0.005).toLocaleString()}</span>
+                      <span className="text-sm font-medium text-white/40 pb-1">/mo</span>
+                    </div>
+                    <Link href="/tools" className="w-full bg-white/5 hover:bg-white/10 border border-white/10 py-4 rounded-xl flex items-center justify-center gap-3 font-black text-xs uppercase tracking-widest transition-all group-hover:border-pf-primary/50">
+                      View Full Breakdown <ChevronLeft size={16} className="rotate-180" />
                     </Link>
                   </div>
-                  <div className="absolute -bottom-10 -right-10 text-white/5 transition-transform group-hover:scale-110 group-hover:-rotate-12 duration-500">
+                  <div className="absolute -bottom-10 -right-10 text-white/5 transition-transform group-hover:scale-110 group-hover:-rotate-12 duration-500 pointer-events-none">
                     <Building2 size={200} />
+                  </div>
+                </div>
+
+                {/* Area Insights Card */}
+                <div className="pf-card bg-white border border-gray-100 p-8 shadow-xl relative group overflow-hidden">
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="p-2 rounded-lg bg-pf-primary/10 text-pf-primary">
+                        <Map size={20} />
+                      </div>
+                      <h4 className="text-xl font-black text-pf-heading tracking-tight">Area Insights</h4>
+                    </div>
+                    <p className="text-sm text-pf-muted mb-8 font-medium leading-relaxed">
+                      Discover price trends and community highlights in <strong>{property.location.split(',')[0]}</strong> to make an informed decision.
+                    </p>
+                    
+                    <div className="space-y-4 mb-8">
+                      <div className="flex items-center justify-between p-3 rounded-xl bg-pf-background border border-gray-50">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-pf-muted">Price Trend</span>
+                        <span className="text-xs font-black text-green-500">+5.2% YoY</span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 rounded-xl bg-pf-background border border-gray-50">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-pf-muted">Demand</span>
+                        <span className="text-xs font-black text-pf-primary">High</span>
+                      </div>
+                    </div>
+
+                    <button className="w-full bg-pf-primary text-white py-4 rounded-xl flex items-center justify-center gap-3 font-black text-xs uppercase tracking-widest shadow-xl shadow-pf-primary/20 hover:scale-[1.02] transition-all">
+                      Explore Trends <ChevronLeft size={16} className="rotate-180" />
+                    </button>
                   </div>
                 </div>
               </div>

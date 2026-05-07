@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useListings } from '@/context/ListingContext';
 import BookingDetailsModal from '@/components/BookingDetailsModal';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, ArrowUpRight, Calendar } from 'lucide-react';
 
 export default function PlatformBookings() {
   const { bookings } = useListings();
@@ -12,71 +12,82 @@ export default function PlatformBookings() {
   const totalRevenue = bookings.length * 5000;
 
   return (
-    <div className="space-y-12 animate-in fade-in duration-700">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl font-black text-slate-900 tracking-tight">Booking Management</h1>
-          <p className="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Oversee all property viewings</p>
+    <div className="space-y-16 animate-in fade-in duration-1000">
+      <div className="flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-4">
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-pf-accent">Revenue Activity</p>
+          <h1 className="font-serif italic text-5xl text-white">Booking <span className="font-normal not-italic">Ledger</span></h1>
+        </div>
+        
+        <div className="bg-pf-surface border border-white/5 px-10 py-6">
+          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/20 mb-1">Projected Revenue</p>
+          <p className="font-serif italic text-3xl text-pf-accent">AED {totalRevenue.toLocaleString()}</p>
         </div>
       </div>
 
-      <div className="rounded-[48px] border border-slate-200 bg-white shadow-2xl shadow-slate-200/40 overflow-hidden">
-        <div className="flex items-center justify-between border-b border-slate-100 p-10 bg-slate-50/30">
-          <div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Platform Bookings</h2>
-            <p className="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Global Transaction Activity</p>
-          </div>
-          <span className="rounded-full bg-green-50 px-6 py-2 text-sm font-black text-green-600 border border-green-100">
-            AED {totalRevenue.toLocaleString()} Total
-          </span>
-        </div>
-        
+      <div className="bg-pf-surface border border-white/5 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="border-b border-slate-50 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                <th className="px-10 py-6">Booking ID</th>
-                <th className="px-10 py-6">Property</th>
-                <th className="px-10 py-6">Customer</th>
-                <th className="px-10 py-6">Owner</th>
-                <th className="px-10 py-6 text-right">Action</th>
+              <tr className="border-b border-white/5 text-[9px] font-black uppercase tracking-[0.3em] text-white/20">
+                <th className="px-12 py-8">Reference</th>
+                <th className="px-12 py-8">Residence Details</th>
+                <th className="px-12 py-8">Stakeholders</th>
+                <th className="px-12 py-8 text-right">Operations</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50">
+            <tbody className="divide-y divide-white/5">
               {bookings.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="px-10 py-24 text-center">
-                    <p className="text-slate-300 font-black text-lg uppercase tracking-widest">No Bookings Yet</p>
+                  <td colSpan="4" className="px-12 py-32 text-center">
+                    <p className="text-white/10 font-serif italic text-2xl">No transaction activity recorded</p>
                   </td>
                 </tr>
               ) : (
                 bookings.map((booking) => (
-                  <tr key={booking.id} className="group hover:bg-slate-50/50 transition-colors">
-                    <td className="px-10 py-7">
-                      <span className="font-mono text-xs font-bold text-slate-400">{booking.id}</span>
+                  <tr key={booking.id} className="group hover:bg-white/5 transition-all duration-500">
+                    <td className="px-12 py-10">
+                      <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-white/10">
+                        <span>#{booking.id.slice(0, 8)}</span>
+                      </div>
                     </td>
-                    <td className="px-10 py-7">
-                      <p className="font-black text-slate-900 leading-tight">{booking.propertyTitle}</p>
-                      <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-wider">{booking.viewingDate} @ {booking.viewingTime}</p>
+                    <td className="px-12 py-10">
+                      <p className="font-serif text-2xl text-white group-hover:italic transition-all leading-tight mb-2">{booking.propertyTitle}</p>
+                      <div className="flex items-center gap-3 text-[9px] font-black text-white/20 uppercase tracking-widest">
+                        <Calendar size={12} className="text-pf-accent" /> {booking.viewingDate} <span className="text-white/10">|</span> {booking.viewingTime}
+                      </div>
                     </td>
-                    <td className="px-10 py-7">
-                      <p className="font-bold text-slate-700">{booking.customerName}</p>
-                      <p className="text-xs text-slate-400">{booking.customerEmail}</p>
+                    <td className="px-12 py-10">
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-4">
+                          <div className="h-8 w-8 bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black text-white">
+                            {booking.customerName[0]}
+                          </div>
+                          <div>
+                            <p className="text-[11px] font-black uppercase tracking-widest text-white">{booking.customerName}</p>
+                            <p className="text-[9px] font-black text-white/20 uppercase tracking-widest">Client</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <div className="h-8 w-8 bg-pf-accent/10 border border-pf-accent/20 flex items-center justify-center text-[10px] font-black text-pf-accent">
+                            {booking.ownerName[0]}
+                          </div>
+                          <div>
+                            <p className="text-[11px] font-black uppercase tracking-widest text-white">{booking.ownerName}</p>
+                            <p className="text-[9px] font-black text-white/20 uppercase tracking-widest">Advisor</p>
+                          </div>
+                        </div>
+                      </div>
                     </td>
-                    <td className="px-10 py-7">
-                      <span className="inline-flex items-center gap-2 rounded-xl bg-slate-100 px-4 py-2 text-xs font-bold text-slate-700">
-                        {booking.ownerName}
-                      </span>
-                    </td>
-                    <td className="px-10 py-7 text-right">
+                    <td className="px-12 py-10 text-right">
                       <button 
                         onClick={() => {
                           setSelectedBooking(booking);
                           setIsDetailsOpen(true);
                         }}
-                        className="inline-flex items-center gap-2 rounded-xl bg-pf-primary/5 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-pf-primary hover:bg-pf-primary hover:text-white transition-all border border-pf-primary/10"
+                        className="inline-flex items-center gap-3 px-6 py-3 text-[9px] font-black uppercase tracking-widest border border-white/10 text-white/40 hover:border-white hover:text-white transition-all group/btn"
                       >
-                        <ExternalLink size={14} /> View
+                        Details <ArrowUpRight size={14} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                       </button>
                     </td>
                   </tr>

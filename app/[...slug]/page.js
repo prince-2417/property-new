@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import { use } from 'react';
 
 const pageMap = {
   buy: {
@@ -188,7 +189,7 @@ function capitalize(word) {
 }
 
 export default function DynamicPage({ params }) {
-  const slug = params.slug || [];
+  const { slug = [] } = use(params);
   const pageKey = slug[0] || 'buy';
   const page = pageMap[pageKey] || {
     title: 'Page not found',

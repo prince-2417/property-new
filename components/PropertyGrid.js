@@ -1,23 +1,23 @@
 'use client';
 import PropertyCard from './PropertyCard';
+import { Building2 } from 'lucide-react';
 
 export default function PropertyGrid({ listings }) {
   if (!listings || listings.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 px-4 text-center bg-slate-50 rounded-[40px] border border-dashed border-slate-200">
-        <div className="text-slate-300 mb-4">
-          <svg className="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-          </svg>
+      <div className="flex flex-col items-center justify-center py-32 px-4 text-center bg-pf-surface border border-white/5 relative overflow-hidden group">
+        <div className="absolute inset-0 bg-pf-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+        <div className="text-white/10 mb-8 relative z-10">
+          <Building2 size={64} className="mx-auto" />
         </div>
-        <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight">No properties found</h3>
-        <p className="text-slate-500 mt-2 font-medium">Try adjusting your filters to find what you're looking for.</p>
+        <h3 className="text-3xl font-serif italic text-pf-heading relative z-10">No residences found</h3>
+        <p className="text-white/30 mt-4 font-medium uppercase tracking-[0.2em] text-[10px] relative z-10">Refine your search criteria for alternative options</p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
       {listings.map((property) => (
         <PropertyCard key={property.id} property={property} />
       ))}
