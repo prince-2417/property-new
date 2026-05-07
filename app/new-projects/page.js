@@ -12,7 +12,7 @@ const projects = [
   { id: 5, name: 'Yas Golf Collection', developer: 'Aldar', location: 'Yas Island', city: 'Abu Dhabi', price: '1,200,000 AED', image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&q=80&w=1000', tag: 'Selling Fast' },
   { id: 6, name: 'Saadiyat Grove', developer: 'Aldar', location: 'Saadiyat Island', city: 'Abu Dhabi', price: '3,100,000 AED', image: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=1000', tag: 'Cultural' },
   { id: 7, name: 'Aljada', developer: 'Arada', location: 'Muwailih', city: 'Sharjah', price: '850,000 AED', image: 'https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&q=80&w=1000', tag: 'Community' },
-  { id: 8, name: 'Mina Al Arab', developer: 'RAK Properties', location: 'Hayat Island', city: 'Ras Al Khaimah', price: '1,100,000 AED', image: 'https://images.unsplash.com/photo-1600566752355-397921137bf1?auto=format&fit=crop&q=80&w=1000', tag: 'Resort Living' },
+  // { id: 8, name: 'Mina Al Arab', developer: 'RAK Properties', location: 'Hayat Island', city: 'Ras Al Khaimah', price: '1,100,000 AED', image: 'https://images.unsplash.com/photo-1600566752355-397921137bf1?auto=format&fit=crop&q=80&w=1000', tag: 'Resort Living' },
 ];
 
 export default function NewProjectsPage() {
@@ -68,9 +68,7 @@ export default function NewProjectsPage() {
             ))}
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-[1fr_420px]">
-            {/* Projects Grid */}
-            <div className="grid self-start grid-cols-1 gap-px border bg-white/5 border-white/5 xl:grid-cols-2">
+          <div className="grid grid-cols-1 gap-px border bg-white/5 border-white/5 sm:grid-cols-2 xl:grid-cols-3">
               {filteredProjects.length > 0 ? (
                 filteredProjects.map((project) => (
                   <div key={project.id} className="group relative h-[600px] overflow-hidden bg-pf-surface transition-all duration-700 cursor-pointer">
@@ -118,24 +116,6 @@ export default function NewProjectsPage() {
                 </div>
               )}
             </div>
-
-            {/* Sticky Map */}
-            {/* <div className="sticky self-start overflow-hidden border top-28 border-white/5" style={{height: '600px'}}>
-              <div className="flex items-center gap-3 px-6 py-4 border-b bg-pf-surface border-white/5">
-                <MapPin size={14} className="text-pf-accent" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-white/40">UAE Project Locations</span>
-              </div>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m2!1m1!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2m2!1d55.2708!2d25.2048!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae&z=7&center=24.4539,54.3773"
-                width="100%"
-                height="100%"
-                style={{border: 0, filter: 'grayscale(1) invert(0.9) contrast(0.8)'}}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div> */}
-          </div>
         </div>
       </main>
 
