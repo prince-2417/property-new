@@ -112,7 +112,7 @@ export default function ToolsPage() {
             {/* Quick Links Sidebar */}
             <div className="space-y-6 md:space-y-8">
               {[
-                { title: 'Market Reports', desc: 'Latest real estate trends and analysis', icon: LineChart, color: 'text-blue-500' },
+                { title: 'Market Reports', desc: 'Latest real estate trends and analysis', icon: LineChart, color: 'text-pf-primary' },
                 { title: 'Area Insights', desc: 'Deep dive into local price trends', icon: Map, color: 'text-pf-primary' },
                 { title: 'Buyer Guides', desc: 'Master the step-by-step process', icon: BookOpen, color: 'text-green-500' },
               ].map((item, i) => (

@@ -2,19 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 
 :root {
   --pf-background: #f8fafc;
   --pf-surface: #ffffff;
-  --pf-text: #0f172a;
-  --pf-heading: #111827;
+  --pf-text: #334155;
+  --pf-heading: #0f172a;
   --pf-muted: #64748b;
-  --pf-primary: #ef5e4e;
-  --pf-secondary: #d44a3b;
+  --pf-primary: #c5a059;
+  --pf-secondary: #a68241;
+  --pf-accent: #d4af37;
   --pf-border: #e2e8f0;
-  --pf-shadow: 0 15px 40px -20px rgba(15, 23, 42, 0.15);
-  --font-sans: "Inter", sans-serif;
+  --pf-shadow: 0 12px 40px -15px rgba(15, 23, 42, 0.08);
+  --font-sans: "Plus Jakarta Sans", sans-serif;
 }
 
 @layer base {
@@ -35,6 +36,12 @@
     color: var(--pf-text);
     font-family: var(--font-sans);
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--pf-heading);
+    letter-spacing: -0.02em;
   }
 
   button,
@@ -48,53 +55,67 @@
 @layer utilities {
   .pf-card {
     background: var(--pf-surface);
-    border-radius: 28px;
+    border-radius: 24px;
     box-shadow: var(--pf-shadow);
     transition:
-      transform 0.25s ease,
-      box-shadow 0.25s ease;
+      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
+    border: 1px solid var(--pf-border);
   }
 
   .pf-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 24px 70px -35px rgba(15, 23, 42, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 30px 60px -15px rgba(197, 160, 89, 0.15);
+    border-color: rgba(197, 160, 89, 0.3);
   }
 
   .btn-primary {
-    background: var(--pf-primary);
+    background: linear-gradient(135deg, var(--pf-primary), var(--pf-secondary));
     color: #ffffff;
     font-weight: 700;
-    border-radius: 22px;
-    padding: 0.95rem 1.8rem;
+    border-radius: 16px;
+    padding: 0.95rem 2rem;
     transition:
-      transform 0.2s ease,
-      opacity 0.2s ease;
+      all 0.3s ease;
+    box-shadow: 0 10px 20px -10px rgba(197, 160, 89, 0.5);
   }
 
   .btn-primary:hover {
     opacity: 0.95;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px -10px rgba(197, 160, 89, 0.6);
   }
 
   .btn-secondary {
-    border-radius: 9999px;
-    border: 1px solid rgba(239, 94, 78, 0.2);
+    border-radius: 16px;
+    border: 1px solid var(--pf-border);
     background: white;
-    color: var(--pf-primary);
-    padding: 0.95rem 1.8rem;
+    color: var(--pf-heading);
+    padding: 0.95rem 2rem;
     font-weight: 700;
-    transition:
-      background-color 0.2s ease,
-      transform 0.2s ease;
+    transition: all 0.3s ease;
   }
 
   .btn-secondary:hover {
-    background: rgba(239, 94, 78, 0.04);
+    background: var(--pf-background);
+    border-color: var(--pf-primary);
+    color: var(--pf-primary);
     transform: translateY(-1px);
   }
 
   .glass {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-dark {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
+

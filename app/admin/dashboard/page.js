@@ -74,7 +74,7 @@ export default function AdminDashboard() {
               <h2 className="text-2xl font-black text-slate-900 tracking-tight">Registered Users</h2>
               <p className="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Platform member list</p>
             </div>
-            <div className="h-12 w-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+            <div className="h-12 w-12 rounded-2xl bg-pf-primary/10 flex items-center justify-center text-pf-primary">
               <UserCheck size={24} />
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function AdminDashboard() {
                   </tr>
                 ) : (
                   registeredUsers.map((user) => (
-                    <tr key={user.id} className="group hover:bg-indigo-50/30 transition-colors">
+                    <tr key={user.id} className="group hover:bg-pf-primary/5 transition-colors">
                       <td className="px-10 py-7">
                         <div className="flex items-center gap-4">
                           <div className="h-12 w-12 rounded-2xl bg-pf-primary/10 flex items-center justify-center text-pf-primary font-black text-lg shadow-inner">
@@ -117,7 +117,7 @@ export default function AdminDashboard() {
                         <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest border ${
                           user.role === 'Admin' 
                             ? 'bg-amber-50 text-amber-600 border-amber-100' 
-                            : 'bg-blue-50 text-blue-600 border-blue-100'
+                            : 'bg-pf-primary/10 text-pf-primary border-pf-primary/20'
                         }`}>
                           {user.role === 'Admin' ? <ShieldCheck size={12} /> : null}
                           {user.role}

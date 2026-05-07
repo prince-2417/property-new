@@ -2,91 +2,93 @@ import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'luci
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="bg-slate-900 text-slate-400 border-t border-slate-800">
+      <div className="container mx-auto px-6 py-20">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Company Info */}
-          <div>
-            <h3 className="text-xl font-bold mb-4">Property Finder</h3>
-            <p className="text-sm opacity-80 mb-4">
-              Your trusted partner for finding the perfect property in the UAE.
-              Discover premium listings across Dubai, Abu Dhabi, and beyond.
+          <div className="space-y-6">
+            <div className="text-2xl font-black tracking-tighter text-pf-primary flex items-center gap-0.5">
+              <span className="text-pf-primary">Luxe</span>
+              <span className="text-white">Estate</span>
+            </div>
+            <p className="text-[14px] leading-relaxed max-w-xs">
+              The UAE's most exclusive property destination. We connect discerning clients with the most prestigious real estate opportunities across the Emirates.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-white hover:text-blue-400 transition">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="text-white hover:text-blue-400 transition">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="text-white hover:text-blue-400 transition">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="text-white hover:text-blue-400 transition">
-                <Youtube size={20} />
-              </a>
+            <div className="flex space-x-5">
+              {[Facebook, Twitter, Instagram, Youtube].map((Icon, idx) => (
+                <a key={idx} href="#" className="w-10 h-10 rounded-xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-pf-primary hover:text-white transition-all duration-300">
+                  <Icon size={18} />
+                </a>
+              ))}
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li><a href="/buy" className="hover:text-blue-400 transition">Buy Property</a></li>
-              <li><a href="/rent" className="hover:text-blue-400 transition">Rent Property</a></li>
-              <li><a href="/new-projects" className="hover:text-blue-400 transition">New Projects</a></li>
-              <li><a href="/agents" className="hover:text-blue-400 transition">Find Agents</a></li>
-              <li><a href="/tools" className="hover:text-blue-400 transition">Property Tools</a></li>
+            <h4 className="text-white text-sm font-black uppercase tracking-[0.2em] mb-8">Navigation</h4>
+            <ul className="space-y-4 text-[14px]">
+              <li><a href="/buy" className="hover:text-pf-primary transition-colors">Premium For Sale</a></li>
+              <li><a href="/rent" className="hover:text-pf-primary transition-colors">Exclusive Rentals</a></li>
+              <li><a href="/new-projects" className="hover:text-pf-primary transition-colors">Signature Projects</a></li>
+              <li><a href="/agents" className="hover:text-pf-primary transition-colors">Private Agents</a></li>
+              <li><a href="/tools" className="hover:text-pf-primary transition-colors">Market Valuation</a></li>
             </ul>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Services</h4>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-blue-400 transition">Property Valuation</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition">Mortgage Calculator</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition">Area Guides</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition">Market Insights</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition">Property Management</a></li>
+            <h4 className="text-white text-sm font-black uppercase tracking-[0.2em] mb-8">Insights</h4>
+            <ul className="space-y-4 text-[14px]">
+              <li><a href="#" className="hover:text-pf-primary transition-colors">Market Report 2026</a></li>
+              <li><a href="#" className="hover:text-pf-primary transition-colors">Investment Guides</a></li>
+              <li><a href="#" className="hover:text-pf-primary transition-colors">Area Spotlight</a></li>
+              <li><a href="#" className="hover:text-pf-primary transition-colors">Mortgage Advisor</a></li>
+              <li><a href="#" className="hover:text-pf-primary transition-colors">Concierge Services</a></li>
             </ul>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center">
-                <Phone size={16} className="mr-2" />
-                <span>+971 4 123 4567</span>
+            <h4 className="text-white text-sm font-black uppercase tracking-[0.2em] mb-8">Global Office</h4>
+            <div className="space-y-5 text-[14px]">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-slate-800/50 flex items-center justify-center text-pf-primary">
+                  <Phone size={14} />
+                </div>
+                <span>+971 4 800 LUXE</span>
               </div>
-              <div className="flex items-center">
-                <Mail size={16} className="mr-2" />
-                <span>info@propertyfinder.ae</span>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-slate-800/50 flex items-center justify-center text-pf-primary">
+                  <Mail size={14} />
+                </div>
+                <span>concierge@luxeestate.ae</span>
               </div>
-              <div className="flex items-start">
-                <MapPin size={16} className="mr-2 mt-1" />
-                <span>Dubai Media City, Dubai, UAE</span>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-slate-800/50 flex items-center justify-center text-pf-primary flex-shrink-0">
+                  <MapPin size={14} />
+                </div>
+                <span>Burj Khalifa District, <br />Downtown Dubai, UAE</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-white/20 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="text-xs md:text-sm opacity-80 text-center md:text-left">
-              &copy; 2026 Property Finder. All rights reserved.
+        <div className="border-t border-slate-800 mt-20 pt-10">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="text-[12px] uppercase tracking-widest font-bold">
+              &copy; 2026 Luxe Estate Global. All rights reserved.
             </div>
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-[10px] md:text-sm">
-              <a href="#" className="hover:text-blue-400 transition">Privacy Policy</a>
-              <a href="#" className="hover:text-blue-400 transition">Terms of Service</a>
-              <a href="#" className="hover:text-blue-400 transition">Cookie Policy</a>
-              <a href="#" className="hover:text-blue-400 transition">Sitemap</a>
+            <div className="flex flex-wrap justify-center gap-8 text-[12px] uppercase tracking-widest font-bold">
+              <a href="#" className="hover:text-white transition-colors">Privacy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms</a>
+              <a href="#" className="hover:text-white transition-colors">Cookies</a>
+              <a href="#" className="hover:text-white transition-colors">Security</a>
             </div>
           </div>
         </div>
       </div>
     </footer>
+
   );
 }

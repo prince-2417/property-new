@@ -12,7 +12,8 @@ import {
   LogOut,
   Bell,
   Search,
-  CreditCard
+  CreditCard,
+  Map
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -38,6 +39,8 @@ export default function AdminLayout({ children }) {
     { name: 'All Listings', href: '/admin/listings', icon: Building2 },
     { name: 'Manage Users', href: '/admin/users', icon: Users },
     { name: 'Platform Bookings', href: '/admin/bookings', icon: CreditCard },
+    { name: 'Signature Projects', href: '/admin/projects', icon: Building2 },
+    { name: 'Premier Areas', href: '/admin/areas', icon: Map },
     { name: 'Property Details', href: '/admin/property-details', icon: Search },
   ];
 

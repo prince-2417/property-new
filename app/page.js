@@ -5,6 +5,8 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import FilterBar from '@/components/FilterBar';
 import PropertyGrid from '@/components/PropertyGrid';
+import PopularProjectsSection from '@/components/PopularProjectsSection';
+import SearchByAreaSection from '@/components/SearchByAreaSection';
 import TravelTimeSection from '@/components/TravelTimeSection';
 import Footer from '@/components/Footer';
 import { useListings } from '@/context/ListingContext';
@@ -47,13 +49,15 @@ export default function Home() {
         <Navbar />
         <Hero onSearch={setFilters} />
 
-      <section id="listings-results" className="container mx-auto px-4 py-16">
-        <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <section id="listings-results" className="container mx-auto px-4 py-24">
+        <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between animate-in fade-in slide-in-from-bottom-4 duration-1000">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.4em] text-pf-primary font-black mb-3">Verified listings</p>
-            <h2 className="text-4xl md:text-5xl font-black text-pf-heading tracking-tight leading-tight">Discover premium properties</h2>
+            <p className="text-[11px] uppercase tracking-[0.5em] text-pf-primary font-extrabold mb-4">Curated Collection</p>
+            <h2 className="text-4xl md:text-6xl font-extrabold text-pf-heading tracking-tighter leading-tight">Elite Residences</h2>
           </div>
-          <button className="px-8 py-4 rounded-2xl bg-slate-900 text-white text-sm font-black uppercase tracking-widest hover:bg-pf-primary transition-all shadow-xl shadow-slate-200">View all listings</button>
+          <button className="px-10 py-5 rounded-2xl bg-pf-heading text-white text-[11px] font-black uppercase tracking-[0.2em] hover:bg-pf-primary hover:translate-y-[-2px] transition-all shadow-2xl shadow-slate-200">
+            Explore All Listings
+          </button>
         </div>
 
         <FilterBar 
@@ -65,6 +69,10 @@ export default function Home() {
         <PropertyGrid listings={filteredProperties} />
       </section>
 
+      <PopularProjectsSection />
+      
+      <SearchByAreaSection />
+
       <TravelTimeSection />
 
       <Footer />
@@ -72,3 +80,4 @@ export default function Home() {
     </div>
   );
 }
+

@@ -1,30 +1,37 @@
 'use client';
-
-const areas = [
-  { name: 'Dubai Marina', count: '2,450 listings', label: 'Waterfront living' },
-  { name: 'Downtown Dubai', count: '1,820 listings', label: 'Luxury skyscrapers' },
-  { name: 'Jumeirah Village Circle', count: '1,150 listings', label: 'Family neighbourhood' },
-  { name: 'Business Bay', count: '1,330 listings', label: 'Urban lifestyle' },
-];
+import { useListings } from '@/context/ListingContext';
 
 export default function SearchByAreaSection() {
+  const { areas } = useListings();
+
   return (
-    <section className="bg-pf-background py-16">
+    <section className="bg-pf-background py-24">
       <div className="container mx-auto px-4">
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-pf-primary font-semibold mb-2">Search by area</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-pf-heading">Explore popular neighbourhoods</h2>
+            <p className="text-[11px] uppercase tracking-[0.5em] text-pf-primary font-extrabold mb-4">Location Guide</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-pf-heading tracking-tighter">Premier Neighbourhoods</h2>
           </div>
-          <button className="btn-secondary w-full md:w-auto">See all areas</button>
+          <button className="px-8 py-4 rounded-2xl bg-white border border-slate-200 text-pf-heading text-[11px] font-black uppercase tracking-[0.2em] hover:border-pf-primary hover:text-pf-primary transition-all">
+            View All Areas
+          </button>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {areas.map((area) => (
-            <div key={area.name} className="pf-card p-6 border border-gray-100 hover:border-pf-primary transition">
-              <div className="text-sm font-semibold uppercase tracking-[0.2em] text-pf-primary mb-3">{area.name}</div>
-              <h3 className="text-xl font-bold text-pf-heading mb-2">{area.count}</h3>
-              <p className="text-sm text-pf-muted">{area.label}</p>
+            <div key={area.name} className="group relative h-[400px] overflow-hidden rounded-[32px] bg-white shadow-xl transition-all duration-500 hover:translate-y-[-8px]">
+              <img 
+                src={area.image} 
+                alt={area.name} 
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/40 to-transparent" />
+              
+              <div className="absolute bottom-0 left-0 w-full p-8">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-pf-primary mb-2">{area.label}</p>
+                <h3 className="text-2xl font-black text-white mb-2">{area.name}</h3>
+                <p className="text-sm text-white/60 font-medium">{area.count}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -32,3 +39,4 @@ export default function SearchByAreaSection() {
     </section>
   );
 }
+

@@ -39,7 +39,7 @@ export default function SettingsPage() {
               </div>
               <h2 className="text-2xl font-black text-pf-heading tracking-tight">{user?.name}</h2>
               <p className={`mt-2 inline-flex rounded-full px-4 py-1 text-[10px] font-black uppercase tracking-widest border ${
-                user?.role === 'Admin' ? 'bg-amber-50 text-amber-600 border-amber-100' : 'bg-blue-50 text-blue-600 border-blue-100'
+                user?.role === 'Admin' ? 'bg-amber-50 text-amber-600 border-amber-100' : 'bg-pf-primary/10 text-pf-primary border-pf-primary/20'
               }`}>
                 {user?.role}
               </p>

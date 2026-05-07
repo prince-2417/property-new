@@ -80,7 +80,7 @@ export default function AdminManageUsers() {
                     <span className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] border ${
                       user.role === 'Admin' 
                         ? 'bg-amber-50 text-amber-600 border-amber-100' 
-                        : 'bg-blue-50 text-blue-600 border-blue-100'
+                        : 'bg-pf-primary/10 text-pf-primary border-pf-primary/20'
                     }`}>
                       {user.role === 'Admin' ? <ShieldCheck size={14} /> : <Users size={14} />}
                       {user.role}
